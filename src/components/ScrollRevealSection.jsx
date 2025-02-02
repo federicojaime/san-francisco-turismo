@@ -17,7 +17,7 @@ const ScrollRevealSection = ({ children }) => {
             controls.start('visible');
         }
     }, [controls, inView]);
-
+ 
     return (
         <MotionBox
             ref={ref}

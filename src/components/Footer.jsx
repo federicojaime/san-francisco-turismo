@@ -48,12 +48,17 @@ const Footer = () => {
                         <VStack align="flex-start" spacing={2}>
                             <Text fontWeight="bold" fontSize="md">Enlaces Rápidos</Text>
                             {['Inicio', 'Atractivos', 'Alojamientos', 'Información'].map((item) => (
-                                <Link key={item} href={`/${item.toLowerCase()}`} _hover={{ color: '#FFB81C' }}>
+                                <Link
+                                    key={item}
+                                    href={item === 'Inicio' ? '/' : `/${item.toLowerCase()}`}
+                                    _hover={{ color: '#FFB81C' }}
+                                >
                                     {item}
                                 </Link>
                             ))}
                         </VStack>
                     </GridItem>
+
 
                     {/* Tercera columna: Información de contacto */}
                     <GridItem>
@@ -61,15 +66,21 @@ const Footer = () => {
                             <Text fontWeight="bold" fontSize="md">Contacto</Text>
                             <HStack spacing={2}>
                                 <FaMapMarkerAlt />
-                                <Text fontSize="sm">San Martín 453, San Francisco del Monte de Oro, San Luis</Text>
+                                <Link href="https://www.google.com/maps/search/?api=1&query=San+Mart%C3%ADn+453,+San+Francisco+del+Monte+de+Oro,+San+Luis" isExternal _hover={{ color: '#FFB81C' }}>
+                                    <Text fontSize="sm">Sarmiento S/N, San Francisco del Monte de Oro, San Luis</Text>
+                                </Link>
                             </HStack>
                             <HStack spacing={2}>
                                 <FaPhone />
-                                <Text fontSize="sm">+54 2664 443444</Text>
+                                <Link href="tel:+5492665063769" _hover={{ color: '#FFB81C' }}>
+                                    <Text fontSize="sm">+54 9 2665 06-3769</Text>
+                                </Link>
                             </HStack>
                             <HStack spacing={2}>
                                 <FaEnvelope />
-                                <Text fontSize="sm">turismo@sanfranciscomonteoro.gov.ar</Text>
+                                <Link href="mailto:contacto@vivisanfrancisco.com" _hover={{ color: '#FFB81C' }}>
+                                    <Text fontSize="sm">contacto@vivisanfrancisco.com</Text>
+                                </Link>
                             </HStack>
                         </VStack>
                     </GridItem>
@@ -86,7 +97,7 @@ const Footer = () => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                 >
                     <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap">
-                        <Text fontSize="xs">&copy; 2024 VIVÍ San Francisco. Todos los derechos reservados.</Text>
+                        <Text fontSize="xs">&copy; 2024 Viví San Francisco. Todos los derechos reservados.</Text>
                         <Link
                             href="https://www.instagram.com/codeo.ar"
                             isExternal
@@ -95,8 +106,9 @@ const Footer = () => {
                             alignItems="center"
                             _hover={{ color: '#FFB81C' }}
                         >
-                            Desarrollado con ♥ por
-                            <Text as="span" fontWeight="bold" ml={1}>codeo.ar</Text>
+                            <Image src={images.codeoLogo} alt="Logo Codeo" w="20px" h="25px" mr={2} />
+                            Desarrollado por
+                            <Text as="span" fontWeight="bold" ml={1}>Codeo.ar</Text>
                         </Link>
                     </Flex>
                 </MotionBox>
@@ -106,3 +118,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

@@ -1,165 +1,174 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  Spinner,
-  IconButton,
-} from '@chakra-ui/react';
+import { Box, Heading, VStack, IconButton, Flex } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import videoSpot from "../assets/videos/spot.mp4";
+import imagenPlaceholder from "../assets/images/sierras.jpg";
 
 const MotionBox = motion(Box);
-const MotionText = motion(Text);
+const MotionHeading = motion(Heading);
+const MotionIconButton = motion(IconButton);
 
-const phrases = [
-  "AVENTURA",
-  "PAZ Y SOSIEGO",
-  "NATURALEZA",
-  "HISTORIA",
+const frases = [
+    "AVENTURA",
+    "PAZ Y SOSIEGO",
+    "NATURALEZA",
+    "HISTORIA",
 ];
 
 const VideoBanner = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [currentPhrase, setCurrentPhrase] = useState(0);
+    const [videoListo, setVideoListo] = useState(false);
+    const [fraseActual, setFraseActual] = useState(0);
 
-  useEffect(() => {
-    const video = document.createElement('video');
-    video.src = '/spot.mp4';
-    video.onloadeddata = () => setIsVideoLoaded(true);
-  }, []);
+    useEffect(() => {
+        const elementoVideo = document.getElementById('video-fondo');
+        elementoVideo.addEventListener('canplay', () => setVideoListo(true));
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPhrase((prev) => (prev + 1) % phrases.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+        const intervaloFrases = setInterval(() => {
+            setFraseActual((prev) => (prev + 1) % frases.length);
+        }, 3000);
 
-  const scrollToContent = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
-  };
+        return () => clearInterval(intervaloFrases);
+    }, []);
 
-  return (
-    <Box
-      height="100vh"
-      width="100vw"
-      position="relative"
-      overflow="hidden"
-    >
-      <AnimatePresence>
-        {!isVideoLoaded && (
-          <MotionBox
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            position="absolute"
-            top="0"
-            left="0"
-            right="0"
-            bottom="0"
-            bg="#00A9CE"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            zIndex="10"
-          >
-            <Spinner size="xl" color="#FFB81C" thickness="4px" />
-          </MotionBox>
-        )}
-      </AnimatePresence>
+    const scrollAlContenido = () => {
+        window.scrollTo({
+            top: window.innerHeight,
+            behavior: 'smooth'
+        });
+    };
 
-      {isVideoLoaded && (
-        <Box
-          as="video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          src="/spot.mp4"
-          objectFit="cover"
-          width="100%"
-          height="100%"
-          position="absolute"
-          top="0"
-          left="0"
-        />
-      )}
+    return (
+        <Box position="relative" height="100vh" overflow="hidden">
+            <Box
+                as="img"
+                src={imagenPlaceholder}
+                alt="Paisaje de San Francisco"
+                position="absolute"
+                inset="0"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+            />
+            <Box
+                as="video"
+                id="video-fondo"
+                src={videoSpot}
+                autoPlay
+                loop
+                muted
+                playsInline
+                position="absolute"
+                inset="0"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                transition="opacity 1s"
+                opacity={videoListo ? 1 : 0}
+            />
+            <Box
+                position="absolute"
+                inset="0"
+                bg="linear-gradient(to bottom, rgba(0,169,206,0.1), rgba(0,169,206,0.7))"
+                zIndex="1"
+            />
 
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        bg="rgba(0,169,206,0.3)"
-        zIndex="1"
-      />
-
-      <VStack
-        position="absolute"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-        textAlign="center"
-        spacing={8}
-        zIndex="2"
-        width="100%"
-        px={4}
-      >
-        <MotionBox
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <Heading as="h1" size="4xl" color="white" textShadow="2px 2px 4px rgba(0,0,0,0.3)">
-            VIVÍ
-          </Heading>
-          <Heading as="h2" size="3xl" color="#FFB81C" textShadow="2px 2px 4px rgba(0,0,0,0.3)">
-            SAN FRANCISCO
-          </Heading>
-        </MotionBox>
-
-        <Box height="60px" overflow="hidden">
-          <AnimatePresence mode="wait">
-            <MotionText
-              key={currentPhrase}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              fontSize="3xl"
-              fontWeight="bold"
-              color="white"
-              textShadow="1px 1px 2px rgba(0,0,0,0.3)"
+            <Flex
+                direction="column"
+                height="100%"
+                justifyContent="space-between"
+                alignItems="center"
+                position="relative"
+                zIndex="10"
             >
-              {phrases[currentPhrase]}
-            </MotionText>
-          </AnimatePresence>
-        </Box>
-      </VStack>
+                <VStack
+                    flex="1"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={8}
+                    px={4}
+                >
+                    <MotionBox
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        textAlign="center"
+                    >
+                        <MotionHeading
+                            as="h1"
+                            size="3xl"
+                            color="white"
+                            fontWeight="light"
+                            textShadow="2px 2px 8px rgba(0,0,0,0.6)"
+                            letterSpacing="wider"
+                        >
+                            VIVÍ
+                        </MotionHeading>
+                        <MotionHeading
+                            as="h2"
+                            size="3xl"
+                            color="#FFB81C"
+                            fontWeight="semibold"
+                            letterSpacing="tighter"
+                            textShadow="2px 2px 8px rgba(0,0,0,0.6)"
+                        >
+                            SAN FRANCISCO
+                        </MotionHeading>
+                    </MotionBox>
 
-      <IconButton
-        icon={<ChevronDownIcon />}
-        aria-label="Scroll down"
-        position="absolute"
-        bottom="5%"
-        left="50%"
-        transform="translateX(-50%)"
-        onClick={scrollToContent}
-        size="lg"
-        fontSize="3xl"
-        color="white"
-        bg="transparent"
-        _hover={{ bg: "whiteAlpha.200" }}
-        zIndex="2"
-      />
-    </Box>
-  );
+                    <AnimatePresence mode="wait">
+                        <MotionHeading
+                            key={fraseActual}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.5 }}
+                            size="xl"
+                            color="white"
+                            textShadow="1px 1px 4px rgba(0,0,0,0.6)"
+                        >
+                            {frases[fraseActual]}
+                        </MotionHeading>
+                    </AnimatePresence>
+                </VStack>
+
+                <MotionIconButton
+                    icon={<ChevronDownIcon />}
+                    aria-label="Desplazar al contenido"
+                    onClick={scrollAlContenido}
+                    size="lg"
+                    fontSize="3xl"
+                    color="white"
+                    bg="transparent"
+                    _hover={{ bg: "whiteAlpha.200" }}
+                    transition="all 0.3s"
+                    mb={8}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                />
+            </Flex>
+
+            {
+                !videoListo && (
+                    <Box
+                        position="absolute"
+                        inset="0"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        bg="rgba(0,169,206,0.5)"
+                        zIndex="20"
+                    >
+                        <Box
+                            className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"
+                        />
+                    </Box>
+                )
+            }
+        </Box >
+    );
 };
 
 export default VideoBanner;

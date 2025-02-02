@@ -11,7 +11,9 @@ import testimonials from './testimonials.jpg';
 import experience from './experience.jpg';
 import mountains from './mountains.jpg';
 import vivi from './vivi_blanco.png';
-import logoSF from './logo_sf.png'
+import logoSF from './logo_sf.png';
+import codeoLogo from './codeo.png'; 
+
 export const images = {
   logo,
   sierras,
@@ -24,5 +26,6 @@ export const images = {
   experience,
   mountains,
   vivi,
-  logoSF
+  logoSF,
+  codeoLogo  // Añadido codeoLogo
 };

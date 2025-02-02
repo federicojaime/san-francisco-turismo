@@ -22,9 +22,17 @@ import Logo from '../assets/images/vivi_blanco.png';
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
 
-const NavLink = ({ children, to, isMobile = false }) => {
+const NavLink = ({ children, to, isMobile = false, onClose }) => {
   const location = useLocation();
-  const isActive = location.pathname === to;
+
+  // Normaliza el pathname para evitar problemas con mayúsculas o caracteres
+  const isActive = location.pathname.toLowerCase() === to.toLowerCase();
+
+  const handleClick = () => {
+    if (isMobile && onClose) {
+      onClose();
+    }
+  };
 
   return (
     <Box
@@ -50,6 +58,7 @@ const NavLink = ({ children, to, isMobile = false }) => {
           bg: 'transparent',
         }}
         transition="all 0.3s"
+        onClick={handleClick}
       >
         {children}
       </Button>
@@ -85,7 +94,6 @@ const Header = () => {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Ejecutar una vez para establecer el estado inicial
     handleScroll();
 
     return () => {
@@ -107,14 +115,15 @@ const Header = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Image
-        src={Logo}
-        alt="San Francisco Turismo"
-        height="60px"
-        objectFit="contain"
-        filter="drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))"
-      />
-
+      <NavLink to="/">
+        <Image
+          src={Logo}
+          alt="San Francisco Turismo"
+          height="60px"
+          objectFit="contain"
+          filter="drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))"
+        />
+      </NavLink>
       <LayoutGroup>
         <Flex
           as="nav"
@@ -123,9 +132,25 @@ const Header = () => {
           alignItems="center"
         >
           <NavLink to="/">Inicio</NavLink>
-          <NavLink to="/attractions">Atractivos</NavLink>
-          <NavLink to="/accommodations">Alojamientos</NavLink>
-          <NavLink to="/information">Información</NavLink>
+          <NavLink to="/atractivos">Atractivos</NavLink>
+          <NavLink to="/alojamientos">Alojamientos</NavLink>
+          <NavLink to="/informacion">Información</NavLink>
+          {/* <Box
+            as="a"
+            href="https://vivisanfrancisco.com/ticket/"
+            target="_blank"
+            rel="noopener noreferrer"
+            mx={4}
+            fontSize="xl"
+            fontWeight="normal"
+            color="white"
+            _hover={{
+              color: '#FFB81C',
+              textDecoration: 'underline',
+            }}
+          >
+            Eventos
+          </Box>*/}
         </Flex>
       </LayoutGroup>
 
@@ -150,18 +175,32 @@ const Header = () => {
           <DrawerBody>
             <LayoutGroup>
               <VStack spacing={4} align="stretch" mt={8}>
-                <NavLink to="/" isMobile>
+                <NavLink to="/" isMobile onClose={onClose}>
                   Inicio
                 </NavLink>
-                <NavLink to="/attractions" isMobile>
+                <NavLink to="/atractivos" isMobile onClose={onClose}>
                   Atractivos
                 </NavLink>
-                <NavLink to="/accommodations" isMobile>
+                <NavLink to="/alojamientos" isMobile onClose={onClose}>
                   Alojamientos
                 </NavLink>
-                <NavLink to="/information" isMobile>
+                <NavLink to="/informacion" isMobile onClose={onClose}>
                   Información
                 </NavLink>
+                {/*<Box
+                  as="a"
+                  href="https://vivisanfrancisco.com/ticket/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  fontSize="lg"
+                  color="gray.800"
+                  _hover={{
+                    color: '#FFB81C',
+                  }}
+                  onClick={onClose}
+                >
+                  Eventos
+                </Box>*/}
               </VStack>
             </LayoutGroup>
           </DrawerBody>

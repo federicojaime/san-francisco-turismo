@@ -1,116 +1,94 @@
-// src/pages/Home.jsx
 import { useRef } from 'react';
 import {
     Box,
-    Container,
-    VStack,
-    Flex,
-    useColorModeValue
 } from '@chakra-ui/react';
-import { useViewportScroll, useTransform, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import Banner from '../components/Banner';
 
 // Importación de componentes personalizados
 import VideoBanner from '../components/VideoBanner';
-import WeatherWidget from '../components/WeatherWidget';
-import EventCalendar from '../components/EventCalendar';
-import TestimonialCarousel from '../components/TestimonialCarousel';
 import InteractiveMap from '../components/InteractiveMap';
-
-// Importación de componentes separados
-import ParallaxSection from '../components/ParallaxSection';
-import AnimatedHeading from '../components/AnimatedHeading';
-import FloatingButton from '../components/FloatingButton';
-import AttractionAccordion from '../components/AttractionAccordion'; // Nuevo componente
+import AttractionsCarousel from '../components/AttractionsCarousel';
 import ExperienceSection from '../components/ExperienceSection';
 
 // Importación de imágenes
 import sierrasImage from '../assets/images/sierras.jpg';
 import riosImage from '../assets/images/rios.jpg';
 import culturaImage from '../assets/images/cultura.jpg';
-import experienceImage from '../assets/images/experience.jpg';
-import senderismoImage from '../assets/images/senderismo.jpg';
+import rioSanFranciscoImage from '../assets/images/rioSanFranciscoImage.jpg';
+import alojamientoImage from '../assets/images/alojamiento.jpg';
 import gastronomiaImage from '../assets/images/gastronomia.jpg';
-import artesaniasImage from '../assets/images/artesanias.jpg';
-import testimonialsImage from '../assets/images/testimonials.jpg';
-
+import casaMuseoImage from '../assets/images/casaMuseoImage.jpg';
+import diqueSanFranciscoImage from '../assets/images/diqueSanFranciscoImage.jpg';
 
 //Separador
 import ParallaxSeparator from '../components/ParallaxSeparator';
-import separatorImage1 from '../assets/images/sierras.jpg'; // example image
+import separatorImage1 from '../assets/images/sierras.jpg';
 import separatorImage2 from '../assets/images/experience.jpg';
-
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-    const bgColor = useColorModeValue('gray.50', 'gray.900');
-    const textColor = useColorModeValue('gray.600', 'gray.200');
-
-    const { scrollYProgress } = useViewportScroll();
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
-    const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
-    const smoothScale = useSpring(scale, { stiffness: 400, damping: 90 });
-    const smoothY = useSpring(y, { stiffness: 400, damping: 90 });
-
+    const attractions = [
+        {
+            title: 'Naturaleza',
+            image: sierrasImage,
+            description: 'Explora las majestuosas sierras de San Francisco del Monte de Oro.'
+        },
+        {
+            title: 'Ríos y Arroyos',
+            image: riosImage,
+            description: 'Disfruta de la frescura de nuestros ríos y arroyos cristalinos.'
+        },
+        {
+            title: 'Cultura e Historia',
+            image: culturaImage,
+            description: 'Sumérgete en la rica herencia cultural e histórica de nuestra ciudad.'
+        },
+        {
+            title: 'Alojamientos',
+            image: alojamientoImage,
+            description: 'Buscá tu proximo hogar mientras disfrutas de nuestro destino.'
+        },
+        {
+            title: 'Gastronomía',
+            image: gastronomiaImage,
+            description: 'Degusta los sabores auténticos de nuestra cocina local.'
+        },
+    ];
     const attractionsRef = useRef(null);
-
-    const scrollToAttractions = () => {
-        attractionsRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
     return (
         <ParallaxProvider>
             <Box>
                 {/* VideoBanner */}
                 <VideoBanner />
 
-                {/* Sección de Atractivos Turísticos */}
-                <Box ref={attractionsRef} bg={bgColor} py={16}>
-                    <Container maxW="container.xl">
-                        <VStack spacing={12}>
-                            <AnimatedHeading color={textColor}>Viví los Atractivos</AnimatedHeading>
-                            <AttractionAccordion
-                                attractions={[
-                                    {
-                                        title: 'Sierras',
-                                        image: sierrasImage,
-                                        description: 'Recorré las majestuosas sierras y descubrí vistas impresionantes.',
-                                    },
-                                    {
-                                        title: 'Ríos',
-                                        image: riosImage,
-                                        description: 'Sumergite en las aguas cristalinas de nuestros ríos.',
-                                    },
-                                    {
-                                        title: 'Cultura',
-                                        image: culturaImage,
-                                        description: 'Viví la historia y las tradiciones de nuestro pueblo.',
-                                    },
-                                ]}
-                            />
-                        </VStack>
-                    </Container>
+                <Box ref={attractionsRef}>
+                    <AttractionsCarousel attractions={attractions} />
                 </Box>
+                
+                <ParallaxSeparator text="Descubrí San Francisco del Monte de Oro" imageUrl={separatorImage1} />
 
-                {/* Separador */}
-                <ParallaxSeparator text="Descubrí las Sierras" imageUrl={separatorImage1} />
+                {/*<a href="https://vivisanfrancisco.com/ticket/" target="_blank" rel="noopener noreferrer">
+                    <ParallaxSeparator text='Conseguí tu entrada para el "Festival del Artesano"' imageUrl={separatorImage1} />
+                </a> */}
 
+                {/* ExperienceSection */}
                 <ExperienceSection
                     experiences={[
                         {
-                            title: "Senderismo",
-                            image: senderismoImage,
-                            description: "Explorá rutas increíbles y conectá con la naturaleza.",
+                            title: "Río de San Francisco",
+                            image: rioSanFranciscoImage, // Necesitarás importar o definir esta imagen
+                            description: "Disfrutá de las cristalinas aguas del río, ideal para refrescarte, pescar y pasar un día en familia rodeado de naturaleza.",
                         },
                         {
-                            title: "Gastronomía",
-                            image: gastronomiaImage,
-                            description: "Degustá sabores auténticos de la región.",
+                            title: "Primera Escuela de Sarmiento",
+                            image: casaMuseoImage, // Necesitarás importar o definir esta imagen
+                            description: "Visitá el monumento histórico del prócer argentino y sumergite en la historia de su vida y obra.",
                         },
                         {
-                            title: "Artesanías",
-                            image: artesaniasImage,
-                            description: "Descubrí el talento de nuestros artesanos locales.",
+                            title: "Dique Las Palmeras",
+                            image: diqueSanFranciscoImage, // Necesitarás importar o definir esta imagen
+                            description: "Relajate en este hermoso embalse, ideal para actividades acuáticas y picnics familiares.",
                         },
                     ]}
                 />
@@ -119,38 +97,14 @@ const Home = () => {
                 <ParallaxSeparator text="Viví una Experiencia Única" imageUrl={separatorImage2} />
 
                 {/* Sección de Planificación */}
-                <Box bg={bgColor} py={16}>
-                    <Container maxW="container.xl">
-                        <VStack spacing={12}>
-                            <AnimatedHeading color={textColor}>Planificá tu aventura</AnimatedHeading>
-                            <Flex
-                                direction={{ base: 'column', md: 'row' }}
-                                justify="space-between"
-                                w="100%"
-                                mt={8}
-                                gap={8}
-                            >
-                            </Flex>
-                        </VStack>
-                    </Container>
-                </Box>
-
-                {/* Second parallax separator */}
-                <ParallaxSeparator text="Viví una Experiencia Única" imageUrl={separatorImage2} />
+                <Banner />
 
 
-
-                {/* Separador */}
-                <Box borderBottom="2px dashed #00AEEF" width="80%" margin="auto" my={8} />
 
                 {/* Sección de Mapa Interactivo */}
-                <Box bg={bgColor} py={16}>
-                    <Container maxW="container.xl">
-                        <VStack spacing={12}>
-                            <InteractiveMap />
-                        </VStack>
-                    </Container>
-                </Box>
+
+                <InteractiveMap />
+
             </Box>
         </ParallaxProvider>
     );

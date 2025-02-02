@@ -1,49 +1,123 @@
-import React from 'react';
-import { Box, Container, VStack, Flex, Heading, Text, Input, Textarea, Button } from '@chakra-ui/react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import React, { useState } from 'react';
+import { Box, Container, VStack, Heading, Input, Textarea, Button, useToast } from '@chakra-ui/react';
 
 const InteractiveMap = () => {
-    const position = [-32.6795, -66.1281]; // Coordenadas de San Francisco del Monte de Oro
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+    });
+    const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast();
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+    
+        try {
+            const response = await fetch('https://vivisanfrancisco.com/api-sanfrancisco/send_email.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            const result = await response.json();
+    
+            if (result.success) {
+                toast({
+                    title: "Mensaje enviado",
+                    description: result.message,
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+                setFormData({ name: '', email: '', phone: '', message: '' });
+            } else {
+                throw new Error(result.message || 'Error al enviar el mensaje');
+            }
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: error.message || "No se pudo enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return (
-        <Box bg="gray.50" py={16}>
+        <Box py={16} display="flex" justifyContent="center" alignItems="center">
             <Container maxW="container.xl">
-                <VStack spacing={12} align="stretch">
-                    <Heading as="h2" size="2xl" textAlign="center" color="blue.600">
-                        Descubrí San Francisco
+                <VStack spacing={8} align="center" bg="white" p={8} borderRadius="2xl" boxShadow="2xl" width="full">
+                    <Heading as="h3" size="lg" color="teal.500" textAlign="center">
+                        ¡Déjanos ayudarte a planificar el viaje perfecto!
                     </Heading>
-                    <Text fontSize="xl" textAlign="center" color="gray.600">
-                        Te ayudamos a planear y conocer San Francisco para tus próximas vacaciones
-                    </Text>
-                    <Flex direction={{ base: 'column', md: 'row' }} gap={8}>
-                        <Box flex={1} height="400px" borderRadius="xl" overflow="hidden" boxShadow="xl">
-                            <MapContainer center={position} zoom={13} style={{ height: '100%', width: '100%' }}>
-                                <TileLayer
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                />
-                                <Marker position={position}>
-                                    <Popup>
-                                        San Francisco del Monte de Oro <br /> ¡Te esperamos!
-                                    </Popup>
-                                </Marker>
-                            </MapContainer>
-                        </Box>
-                        <Box flex={1}>
-                            <VStack spacing={4} align="stretch" bg="white" p={6} borderRadius="xl" boxShadow="xl">
-                                <Heading as="h3" size="lg" color="blue.500">
-                                    Contáctanos
-                                </Heading>
-                                <Input placeholder="Nombre" />
-                                <Input placeholder="Email" type="email" />
-                                <Textarea placeholder="Tu mensaje" rows={4} />
-                                <Button colorScheme="blue" size="lg">
-                                    Enviar Mensaje
-                                </Button>
-                            </VStack>
-                        </Box>
-                    </Flex>
+                    <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                        <VStack spacing={4}>
+                            <Input
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                placeholder="Nombre"
+                                size="lg"
+                                focusBorderColor="teal.400"
+                                required
+                            />
+                            <Input
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                placeholder="Email"
+                                type="email"
+                                size="lg"
+                                focusBorderColor="teal.400"
+                                required
+                            />
+                            <Input
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                placeholder="Teléfono de Contacto"
+                                size="lg"
+                                focusBorderColor="teal.400"
+                                required
+                            />
+                            <Textarea
+                                name="message"
+                                value={formData.message}
+                                onChange={handleInputChange}
+                                placeholder="Contanos cómo podemos ayudarte"
+                                rows={4}
+                                size="lg"
+                                focusBorderColor="teal.400"
+                                required
+                            />
+                            <Button
+                                type="submit"
+                                colorScheme="teal"
+                                size="lg"
+                                width="full"
+                                bg="teal.500"
+                                _hover={{ bg: 'teal.600' }}
+                                isLoading={isLoading}
+                            >
+                                Enviar Mensaje
+                            </Button>
+                        </VStack>
+                    </form>
                 </VStack>
             </Container>
         </Box>

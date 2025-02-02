@@ -9,13 +9,17 @@ import Home from './pages/Home';
 import Attractions from './pages/Attractions';
 import Accommodations from './pages/Accommodations';
 import Information from './pages/Information';
-
+import CommunicationWidget from './components/SocialWidget';
+import ScrollToTop from './components/config/ScrollToTop.jsx';
+import Gastronomy from './pages/Gastronomy.jsx';
+import Events from './pages/Events.jsx';
 const MotionBox = motion(Box);
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Router>
+      <Router> {/* Establece el basename en "/preview" */}
+        <ScrollToTop />
         <Box minH="100vh" display="flex" flexDirection="column">
           <Header />
           <AnimatePresence mode="wait">
@@ -28,12 +32,15 @@ function App() {
             >
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/attractions" element={<Attractions />} />
-                <Route path="/accommodations" element={<Accommodations />} />
-                <Route path="/information" element={<Information />} />
+                <Route path="/atractivos" element={<Attractions />} />
+                <Route path="/alojamientos" element={<Accommodations />} />
+                <Route path="/eventos" element={<Events />} />
+                <Route path="/gastronomia" element={<Gastronomy />} />
+                <Route path="/informacion" element={<Information />} />
               </Routes>
             </MotionBox>
           </AnimatePresence>
+          <CommunicationWidget />
           <Footer />
         </Box>
       </Router>
