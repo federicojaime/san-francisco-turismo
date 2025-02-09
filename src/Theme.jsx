@@ -5,7 +5,7 @@ const theme = extendTheme({
     brand: {
       50: '#e6f6ff',
       100: '#b3e0ff',
-      200: '#80caff',
+       200: '#80caff',
       300: '#4db5ff',
       400: '#1a9fff',
       500: '#0077be', // Primary color
