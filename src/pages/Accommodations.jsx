@@ -106,17 +106,6 @@ const accommodationsList = [
     },
     {
         localidad: 'San Francisco',
-        tipo: 'Departamentos',
-        nombre: 'Mari Sol',
-        direccion: 'San Martin y Pringles',
-        area: '',
-        telefono: '2664021752',
-        legajo: '',
-        email: '',
-        web: ''
-    },
-    {
-        localidad: 'San Francisco',
         tipo: 'Cabañas',
         nombre: 'Alquimia',
         direccion: 'R.Saa Banda Sur',
@@ -368,6 +357,72 @@ const accommodationsList = [
         direccion: 'Rodriguez Saa Banda Sur',
         area: '',
         telefono: '2664725279',
+        legajo: '',
+        email: '',
+        web: ''
+    },
+    {
+        localidad: 'San Francisco',
+        tipo: 'Departamentos',
+        nombre: 'Departamentos Las Paltas',
+        direccion: 'Avda Sarmiento entre Faustino Berrondo y Sergio Olmos',
+        area: '',
+        telefono: '2664580060',
+        legajo: '',
+        email: '',
+        web: ''
+    },
+    {
+        localidad: 'San Francisco',
+        tipo: 'Hostel',
+        nombre: 'Hostel Doña Gringa',
+        direccion: 'Alberdi s/n°',
+        area: '',
+        telefono: '3517554485',
+        legajo: '',
+        email: '',
+        web: ''
+    },
+    {
+        localidad: 'San Francisco',
+        tipo: 'Cabañas',
+        nombre: 'Cabañas Barranca Aguaribay',
+        direccion: 'Camino a Rio Gomez',
+        area: '',
+        telefono: '2664398421',
+        legajo: '',
+        email: '',
+        web: ''
+    },
+    {
+        localidad: 'San Francisco',
+        tipo: 'Alojamiento',
+        nombre: 'Alojamiento Millaray',
+        direccion: 'Ruta Provincial n° 9. El Barrial',
+        area: '',
+        telefono: '1157603054',
+        legajo: '',
+        email: '',
+        web: ''
+    },
+    {
+        localidad: 'San Francisco',
+        tipo: 'Camping',
+        nombre: 'Camping Las Palmas',
+        direccion: 'Ricardo Rojas',
+        area: '',
+        telefono: '3516210400',
+        legajo: '',
+        email: '',
+        web: ''
+    },
+    {
+        localidad: 'San Francisco',
+        tipo: 'Complejo Turístico',
+        nombre: 'Complejo Turistico Rio Gomez',
+        direccion: '',
+        area: '',
+        telefono: '2664776941',
         legajo: '',
         email: '',
         web: ''

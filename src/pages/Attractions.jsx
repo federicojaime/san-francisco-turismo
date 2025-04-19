@@ -36,6 +36,9 @@ import plazaPrincipal from '../assets/images/plazaPrincipal.jpg';
 import feriaArtesano from '../assets/images/feriaArtesano.jpg';
 import ElegantSectionTitle from '../components/ElegantSectionTitle';
 import casaMuseoRosendaImage from '../assets/images/rosenda.jpg';
+import pamperoEcuestreImage from '../assets/images/pamperoEcuestreImage.jpg'; // You'll need to add this image to your assets folder
+import turismoArqueologicoImage from '../assets/images/turismoArqueologicoImage.jpg'; // You'll need to add this image to your assets folder
+import astroturismoImage from '../assets/images/astroturismoImage.jpg'; // You'll need to add this image to your assets folder
 
 
 import centroCulturalImage from '../assets/images/centroCulturalImage.jpg';
@@ -56,6 +59,35 @@ const attractionsList = [
         location: 'Calle Coronel Concha y Rosenda Quiroga',
         hours: 'Lunes a viernes: 9:00 - 12:00 y 17:30 - 20:30. Sábados, domingos y feriados: 9:00 - 12:30 y 17:00 - 20:30',
         additionalInfo: 'Se pueden realizar visitas guiadas para conocer la historia de la educadora. La casa mantiene su estructura y decoración original del siglo XIX.',
+    },
+    {
+        name: 'Astroturismo y Senderismo Nocturno',
+        image: astroturismoImage, // You'll need to add this image to your assets
+        description: 'Experiencia única que combina el senderismo nocturno hacia pinturas rupestres con la observación astronómica y astrofotografía. Una aventura que fusiona la historia milenaria de las pinturas rupestres con la majestuosidad del universo estrellado, guiada por la fotógrafa profesional Sofía Yehie Gabras, guía baqueana autorizada en colaboración con la arqueóloga Alejandra Negro.',
+        categories: ['Naturaleza', 'Senderismo', 'Actividades', 'Cultura e Historia'],
+        location: 'Partida desde Virgen de Lourdes (R9), San Francisco del Monte de Oro',
+        hours: 'Contactar para próximas fechas',
+        additionalInfo: 'Descubrí los cielos de San Francisco en circuitos cortos o largos, durante todo el año, ideal para el grupo familiar esta propuesta vincula las antiguas constelaciones, la cosmovisión y la astrofotografia. Sofia Yehie Gabras 1153138190 Guía baqueana provincial habilitada.',
+    },
+    {
+        name: 'Turismo Arqueológico y Cultural Responsable',
+        image: turismoArqueologicoImage, // You'll need to add this image to your assets
+        description: 'Emprendimiento llevado a cabo por Alejandra Negro, Lic. en Cs. Antropológicas (UBA), en San Francisco del Monte de Oro y alrededores. Ofrece salidas de senderismo para explorar vestigios y legados de los primeros habitantes de la región, incluyendo pinturas rupestres y circuitos de morteros. También se programan salidas nocturnas para quienes estén interesados en astronomía cultural e interpretación del cielo.',
+        googleMapsLink: 'https://maps.app.goo.gl/9A1DQFofD6X6Gom39', // Replace with the actual Google Maps link
+        categories: ['Cultura e Historia', 'Senderismo', 'Actividades'],
+        location: 'San Francisco del Monte de Oro y alrededores',
+        hours: 'Contactar para reservas y horarios disponibles',
+        additionalInfo: 'Guía habilitada por el Municipio de San Francisco del Monte de Oro. Contacto: WhatsApp +54 2664888422, Email: alenegro.asegur@gmail.com, Facebook: Alejandra Negro. Reservas previas necesarias.',
+    },
+    {
+        name: 'Pampero Ecuestre',
+        image: pamperoEcuestreImage, // You'll need to add this image to your assets
+        description: 'Centro de equitación y equinoterapia ubicado en San Francisco Del Monte De Oro. Ofrecemos acceso a senderos junto al río para disfrutar con nuestros caballos, sesiones personalizadas de equinoterapia adaptadas a las necesidades de cada estudiante, y actividades en pista o corral redondo. Nuestra misión es inculcar amor y respeto por nuestros compañeros equinos en cada encuentro.',
+        googleMapsLink: 'https://maps.app.goo.gl/czWXcsrnErRSBpNY7', // Replace with the actual Google Maps link
+        categories: ['Deportes', 'Naturaleza', 'Actividades'],
+        location: 'Pasaje Leandro N. Alem, portones verdes',
+        hours: 'Contactar para reservas y horarios disponibles',
+        additionalInfo: 'Reservas por WhatsApp: +17184405867 (código EEUU) o llamadas: 2664885965. Redes sociales: @pamperoecuestre en Instagram y Pampero Ecuestre en Facebook. Experiencias adaptadas para todas las edades y niveles de experiencia.',
     },
     {
         name: 'Monumento histórico primera escuela Sarmiento',
@@ -181,6 +213,7 @@ const categories = [
     'Deportes',
     'Arquitectura',
     'Compras',
+    'Actividades',
 ];
 
 const categoryIcons = {
@@ -192,6 +225,7 @@ const categoryIcons = {
     'Deportes': Activity,
     'Arquitectura': Home,
     'Compras': ShoppingBag,
+    'Actividades': Activity, // You can change this to a more appropriate icon if needed
 };
 
 const Attractions = () => {
@@ -378,15 +412,17 @@ const Attractions = () => {
                             </Box>
                         </ModalBody>
                         <ModalFooter>
-                            <Link href={selectedAttraction?.googleMapsLink} isExternal>
-                                <Button
-                                    colorScheme="teal"
-                                    size="lg"
-                                    leftIcon={<Icon as={MapPin} />}
-                                >
-                                    Ver en Google Maps
-                                </Button>
-                            </Link>
+                            {selectedAttraction?.googleMapsLink && (
+                                <Link href={selectedAttraction.googleMapsLink} isExternal>
+                                    <Button
+                                        colorScheme="teal"
+                                        size="lg"
+                                        leftIcon={<Icon as={MapPin} />}
+                                    >
+                                        Ver en Google Maps
+                                    </Button>
+                                </Link>
+                            )}
                         </ModalFooter>
                     </ModalContent>
                 </Modal>

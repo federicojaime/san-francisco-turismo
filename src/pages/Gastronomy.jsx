@@ -129,6 +129,12 @@ const gastronomyList = [
         direccion: 'Av. Alberdi S/N°', 
         telefono: '1160198582', 
         enlace: 'https://maps.app.goo.gl/iR8rJ4vkhvGisHKj7' 
+    }, { 
+        tipo: ['Restaurante'], 
+        nombre: 'Posada El Algarrobo', 
+        direccion: 'Miguel B Pastor', 
+        telefono: '2657493676', 
+        enlace: '' 
     }
 ];
 
