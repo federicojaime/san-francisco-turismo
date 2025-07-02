@@ -1,3 +1,4 @@
+// src/components/Footer.jsx - Versión modificada con colores otoñales
 import React from 'react';
 import { Box, Flex, Text, VStack, HStack, Link, Grid, GridItem, Image } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaWhatsapp, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
@@ -9,7 +10,7 @@ const MotionLink = motion(Link);
 
 const Footer = () => {
     return (
-        <Box as="footer" bg="#009ca6" color="white" py={8}>
+        <Box as="footer" className="footer" py={8}>
             <Box maxW="1200px" mx="auto" px={4}>
                 <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={8}>
                     {/* Primera columna: Logos más pequeños y minimalistas */}
@@ -51,7 +52,7 @@ const Footer = () => {
                                 <Link
                                     key={item}
                                     href={item === 'Inicio' ? '/' : `/${item.toLowerCase()}`}
-                                    _hover={{ color: '#FFB81C' }}
+                                    _hover={{ color: '#FFD700' }}
                                 >
                                     {item}
                                 </Link>
@@ -66,19 +67,19 @@ const Footer = () => {
                             <Text fontWeight="bold" fontSize="md">Contacto</Text>
                             <HStack spacing={2}>
                                 <FaMapMarkerAlt />
-                                <Link href="https://www.google.com/maps/search/?api=1&query=San+Mart%C3%ADn+453,+San+Francisco+del+Monte+de+Oro,+San+Luis" isExternal _hover={{ color: '#FFB81C' }}>
+                                <Link href="https://www.google.com/maps/search/?api=1&query=San+Mart%C3%ADn+453,+San+Francisco+del+Monte+de+Oro,+San+Luis" isExternal _hover={{ color: '#FFD700' }}>
                                     <Text fontSize="sm">Sarmiento S/N, San Francisco del Monte de Oro, San Luis</Text>
                                 </Link>
                             </HStack>
                             <HStack spacing={2}>
                                 <FaPhone />
-                                <Link href="tel:+5492665063769" _hover={{ color: '#FFB81C' }}>
+                                <Link href="tel:+5492665063769" _hover={{ color: '#FFD700' }}>
                                     <Text fontSize="sm">+54 9 2665 06-3769</Text>
                                 </Link>
                             </HStack>
                             <HStack spacing={2}>
                                 <FaEnvelope />
-                                <Link href="mailto:contacto@vivisanfrancisco.com" _hover={{ color: '#FFB81C' }}>
+                                <Link href="mailto:contacto@vivisanfrancisco.com" _hover={{ color: '#FFD700' }}>
                                     <Text fontSize="sm">contacto@vivisanfrancisco.com</Text>
                                 </Link>
                             </HStack>
@@ -97,14 +98,14 @@ const Footer = () => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                 >
                     <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap">
-                        <Text fontSize="xs">&copy; 2024 Viví San Francisco. Todos los derechos reservados.</Text>
+                        <Text fontSize="xs">&copy; 2025 Viví San Francisco. Todos los derechos reservados.</Text>
                         <Link
                             href="https://www.instagram.com/codeo.ar"
                             isExternal
                             fontSize="xs"
                             display="flex"
                             alignItems="center"
-                            _hover={{ color: '#FFB81C' }}
+                            _hover={{ color: '#FFD700' }}
                         >
                             <Image src={images.codeoLogo} alt="Logo Codeo" w="20px" h="25px" mr={2} />
                             Desarrollado por
@@ -118,4 +119,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

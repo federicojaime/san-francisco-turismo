@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Heading, VStack, IconButton, Flex } from '@chakra-ui/react';
+import { Box, Heading, VStack, IconButton, Flex, Text, Icon } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import { FaLeaf } from 'react-icons/fa';
 import videoSpot from "../assets/videos/spot.mp4";
 import imagenPlaceholder from "../assets/images/sierras.jpg";
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 const MotionIconButton = motion(IconButton);
+const MotionIcon = motion(Icon);
 
 const frases = [
-    "AVENTURA",
-    "PAZ Y SOSIEGO",
-    "NATURALEZA",
-    "HISTORIA",
+    "COLORES DE OTOÑO",
+    "SENDEROS DORADOS",
+    "NATURALEZA EN CAMBIO",
+    "AIRE FRESCO DE MONTAÑA",
 ];
 
 const VideoBanner = () => {
@@ -69,8 +71,69 @@ const VideoBanner = () => {
             <Box
                 position="absolute"
                 inset="0"
-                bg="linear-gradient(to bottom, rgba(0,169,206,0.1), rgba(0,169,206,0.7))"
+                bg="linear-gradient(to bottom, rgba(210,105,30,0.3), rgba(184,134,11,0.5))"
                 zIndex="1"
+            />
+
+            {/* Hojas animadas flotando */}
+            <MotionIcon
+                as={FaLeaf}
+                position="absolute"
+                top="15%"
+                left="10%"
+                color="#D2691E"
+                boxSize={6}
+                zIndex={2}
+                animate={{ 
+                    y: [0, 10, 0],
+                    x: [0, 5, 0],
+                    rotate: [0, 15, 0]
+                }}
+                transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                }}
+            />
+            
+            <MotionIcon
+                as={FaLeaf}
+                position="absolute"
+                top="30%"
+                right="15%"
+                color="#B8860B"
+                boxSize={8}
+                zIndex={2}
+                animate={{ 
+                    y: [0, -10, 0],
+                    x: [0, -5, 0],
+                    rotate: [0, -20, 0]
+                }}
+                transition={{ 
+                    duration: 6,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                }}
+            />
+            
+            <MotionIcon
+                as={FaLeaf}
+                position="absolute"
+                bottom="25%"
+                left="20%"
+                color="#FF8C00"
+                boxSize={7}
+                zIndex={2}
+                animate={{ 
+                    y: [0, 15, 0],
+                    x: [0, 8, 0],
+                    rotate: [0, 30, 0]
+                }}
+                transition={{ 
+                    duration: 5,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                }}
             />
 
             <Flex
@@ -112,8 +175,19 @@ const VideoBanner = () => {
                             letterSpacing="tighter"
                             textShadow="2px 2px 8px rgba(0,0,0,0.6)"
                         >
-                            SAN FRANCISCO
+                            EL OTOÑO EN SAN FRANCISCO
                         </MotionHeading>
+                        <MotionBox
+                            width="60%"
+                            height="3px"
+                            bgGradient="linear(to-r, #D2691E, #FFB81C)"
+                            mx="auto"
+                            mt={2}
+                            mb={4}
+                            initial={{ width: "0%" }}
+                            animate={{ width: "60%" }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                        />
                     </MotionBox>
 
                     <AnimatePresence mode="wait">
@@ -158,7 +232,7 @@ const VideoBanner = () => {
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
-                        bg="rgba(0,169,206,0.5)"
+                        bg="rgba(210,105,30,0.5)"
                         zIndex="20"
                     >
                         <Box
@@ -167,7 +241,7 @@ const VideoBanner = () => {
                     </Box>
                 )
             }
-        </Box >
+        </Box>
     );
 };
 

@@ -1,3 +1,4 @@
+// src/components/Header.jsx - Versión modificada
 import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
@@ -24,8 +25,6 @@ const MotionFlex = motion(Flex);
 
 const NavLink = ({ children, to, isMobile = false, onClose }) => {
   const location = useLocation();
-
-  // Normaliza el pathname para evitar problemas con mayúsculas o caracteres
   const isActive = location.pathname.toLowerCase() === to.toLowerCase();
 
   const handleClick = () => {
@@ -54,7 +53,7 @@ const NavLink = ({ children, to, isMobile = false, onClose }) => {
         width={isMobile ? 'full' : 'auto'}
         px={4}
         _hover={{
-          color: '#FFB81C',
+          color: '#FFD700',
           bg: 'transparent',
         }}
         transition="all 0.3s"
@@ -69,7 +68,7 @@ const NavLink = ({ children, to, isMobile = false, onClose }) => {
           left="0"
           right="0"
           height="2px"
-          bg="#FFB81C"
+          bg="#FFD700" // Amarillo dorado para el indicador
           layoutId="underline"
         />
       )}
@@ -103,7 +102,7 @@ const Header = () => {
 
   return (
     <MotionFlex
-      bg={`rgba(0, 156, 166, ${bgOpacity})`}
+      bg={`linear-gradient(to right, rgba(147, 40, 16, ${bgOpacity}), rgba(183, 65, 14, ${bgOpacity}), rgba(214, 137, 16, ${bgOpacity}))`}
       px={4}
       py={2}
       position="fixed"
@@ -135,22 +134,6 @@ const Header = () => {
           <NavLink to="/atractivos">Atractivos</NavLink>
           <NavLink to="/alojamientos">Alojamientos</NavLink>
           <NavLink to="/informacion">Información</NavLink>
-          {/* <Box
-            as="a"
-            href="https://vivisanfrancisco.com/ticket/"
-            target="_blank"
-            rel="noopener noreferrer"
-            mx={4}
-            fontSize="xl"
-            fontWeight="normal"
-            color="white"
-            _hover={{
-              color: '#FFB81C',
-              textDecoration: 'underline',
-            }}
-          >
-            Eventos
-          </Box>*/}
         </Flex>
       </LayoutGroup>
 
@@ -187,20 +170,6 @@ const Header = () => {
                 <NavLink to="/informacion" isMobile onClose={onClose}>
                   Información
                 </NavLink>
-                {/*<Box
-                  as="a"
-                  href="https://vivisanfrancisco.com/ticket/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  fontSize="lg"
-                  color="gray.800"
-                  _hover={{
-                    color: '#FFB81C',
-                  }}
-                  onClick={onClose}
-                >
-                  Eventos
-                </Box>*/}
               </VStack>
             </LayoutGroup>
           </DrawerBody>

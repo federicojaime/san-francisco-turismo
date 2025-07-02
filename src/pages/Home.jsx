@@ -1,7 +1,5 @@
 import { useRef } from 'react';
-import {
-    Box,
-} from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import Banner from '../components/Banner';
 
@@ -10,6 +8,10 @@ import VideoBanner from '../components/VideoBanner';
 import InteractiveMap from '../components/InteractiveMap';
 import AttractionsCarousel from '../components/AttractionsCarousel';
 import ExperienceSection from '../components/ExperienceSection';
+import AutumnBanner from '../components/AutumnBanner.jsx';
+import AutumnParallaxSeparator from '../components/AutumnParallaxSeparator.jsx';
+import AutumnActivities from '../components/AutumnActivities.jsx';
+import AutumnGallery from '../components/AutumnGallery.jsx';
 
 // Importación de imágenes
 import sierrasImage from '../assets/images/sierras.jpg';
@@ -22,17 +24,15 @@ import casaMuseoImage from '../assets/images/casaMuseoImage.jpg';
 import diqueSanFranciscoImage from '../assets/images/diqueSanFranciscoImage.jpg';
 
 //Separador
-import ParallaxSeparator from '../components/ParallaxSeparator';
 import separatorImage1 from '../assets/images/sierras.jpg';
 import separatorImage2 from '../assets/images/experience.jpg';
-import { Link } from 'react-router-dom';
 
 const Home = () => {
     const attractions = [
         {
             title: 'Naturaleza',
             image: sierrasImage,
-            description: 'Explora las majestuosas sierras de San Francisco del Monte de Oro.'
+            description: 'Explora las majestuosas sierras con sus colores otoñales.'
         },
         {
             title: 'Ríos y Arroyos',
@@ -62,49 +62,50 @@ const Home = () => {
                 {/* VideoBanner */}
                 <VideoBanner />
 
+                {/* Banner Otoñal */}
+                <AutumnBanner style={{ marginTop: "-5px" }} />
+                <AutumnParallaxSeparator text="Descubrí el Otoño en San Francisco" imageUrl={separatorImage1} />
+
                 <Box ref={attractionsRef}>
                     <AttractionsCarousel attractions={attractions} />
                 </Box>
-                
-                <ParallaxSeparator text="Descubrí San Francisco del Monte de Oro" imageUrl={separatorImage1} />
 
-                {/*<a href="https://vivisanfrancisco.com/ticket/" target="_blank" rel="noopener noreferrer">
-                    <ParallaxSeparator text='Conseguí tu entrada para el "Festival del Artesano"' imageUrl={separatorImage1} />
-                </a> */}
 
-                {/* ExperienceSection */}
+                {/* ExperienceSection
                 <ExperienceSection
                     experiences={[
                         {
                             title: "Río de San Francisco",
-                            image: rioSanFranciscoImage, // Necesitarás importar o definir esta imagen
-                            description: "Disfrutá de las cristalinas aguas del río, ideal para refrescarte, pescar y pasar un día en familia rodeado de naturaleza.",
+                            image: rioSanFranciscoImage,
+                            description: "Disfrutá de las cristalinas aguas del río, ideal para refrescarte y contemplar los colores otoñales de la vegetación ribereña.",
                         },
                         {
                             title: "Primera Escuela de Sarmiento",
-                            image: casaMuseoImage, // Necesitarás importar o definir esta imagen
+                            image: casaMuseoImage,
                             description: "Visitá el monumento histórico del prócer argentino y sumergite en la historia de su vida y obra.",
                         },
                         {
                             title: "Dique Las Palmeras",
-                            image: diqueSanFranciscoImage, // Necesitarás importar o definir esta imagen
-                            description: "Relajate en este hermoso embalse, ideal para actividades acuáticas y picnics familiares.",
+                            image: diqueSanFranciscoImage,
+                            description: "Relajate en este hermoso embalse, donde los paisajes otoñales se reflejan en sus tranquilas aguas.",
                         },
                     ]}
-                />
+                /> */}
 
                 {/* Second parallax separator */}
-                <ParallaxSeparator text="Viví una Experiencia Única" imageUrl={separatorImage2} />
+                <AutumnParallaxSeparator text="Viví una Experiencia Otoñal Única" imageUrl={separatorImage2} />
+
+                {/* Nueva sección de Actividades Otoñales */}
+                <AutumnActivities />
+
+                {/* Galería otoñal */}
+                <AutumnGallery />
 
                 {/* Sección de Planificación */}
                 <Banner />
 
-
-
                 {/* Sección de Mapa Interactivo */}
-
                 <InteractiveMap />
-
             </Box>
         </ParallaxProvider>
     );

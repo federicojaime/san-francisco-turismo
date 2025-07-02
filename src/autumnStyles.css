@@ -1,0 +1,128 @@
+/* src/autumnStyles.css */
+
+/* Sobreescribe el color del header */
+header {
+    background-color: #B7410E !important;
+    background: linear-gradient(to right, #932810, #B7410E, #D68910) !important;
+  }
+  
+  /* Cambia el color del footer */
+  footer {
+    background-color: #8B4513 !important;
+    background: linear-gradient(to right, #7F1E10, #8B4513, #CD950C) !important;
+  }
+  
+  /* Estilos para enlaces y botones */
+  .chakra-button {
+    transition: all 0.3s ease !important;
+  }
+  
+  .chakra-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Estilos para titulares con temática otoñal */
+  .autumn-heading {
+    color: #B7410E !important;
+    position: relative;
+  }
+  
+  .autumn-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #A53A0F, #D68910);
+  }
+  
+  /* Estilos para cards con tema otoñal */
+  .autumn-card {
+    border-top: 3px solid #D68910 !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .autumn-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 20px rgba(139, 69, 19, 0.15) !important;
+  }
+  
+  /* Estilos para el menú de navegación */
+  header a {
+    color: white !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  header a:hover, 
+  header .active {
+    color: #FFD700 !important;
+  }
+  
+  header .active::after {
+    background-color: #FFD700 !important;
+  }
+  
+  /* Imágenes con efecto otoñal */
+  .autumn-image {
+    filter: sepia(20%) saturate(120%) !important;
+    transition: all 0.5s ease !important;
+  }
+  
+  .autumn-image:hover {
+    filter: sepia(10%) saturate(140%) !important;
+  }
+  
+  /* Banner principal con fondo otoñal */
+  .main-banner {
+    background: linear-gradient(to right, rgba(176, 58, 46, 0.85), rgba(214, 137, 16, 0.85)) !important;
+    color: white !important;
+  }
+  
+  /* Clases para iconos con colores de otoño */
+  .autumn-icon-gold {
+    color: #CD950C !important;
+  }
+  
+  .autumn-icon-rust {
+    color: #B7410E !important;
+  }
+  
+  .autumn-icon-brown {
+    color: #8B4513 !important;
+  }
+  
+  /* Personalización de separadores */
+  hr {
+    border-color: #D68910 !important;
+    opacity: 0.3;
+  }
+  
+  /* Sobreescribe el color de los titulares de secciones principales */
+  .elegant-section-title h2 {
+    color: #B7410E !important;
+  }
+  
+  .elegant-section-title div {
+    background-color: #CD950C !important;
+  }
+  
+  /* Estilos para los elementos de atracción de la página de inicio */
+  .attractions-card {
+    border-color: rgba(139, 69, 19, 0.3) !important;
+  }
+  
+  .attractions-card:hover {
+    border-color: #CD950C !important;
+  }
+  
+  /* Personaliza los fondos de secciones */
+  .section-bg-light {
+    background-color: #FEF5E7 !important;
+  }
+  
+  .section-bg-dark {
+    background-color: rgba(183, 65, 14, 0.05) !important;
+  }
