@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { 
     Box, 
     Button, 
@@ -157,7 +157,7 @@ const WinterActivitiesModal = ({ isOpen, onClose }) => {
                     <VStack spacing={6} p={8} align="center">
                         <VStack spacing={3} textAlign="center">
                             <Heading size="lg" color="winter.deep">
-                                ☃️ Vacaciones de Invierno Épicas
+                                🎿 Vacaciones de Invierno Épicas
                             </Heading>
                             <Text color="gray.700" fontSize="lg" maxW="500px" lineHeight="1.6">
                                 Descubrí una experiencia invernal única con actividades para toda la familia. 
@@ -238,6 +238,15 @@ const WinterActivitiesModal = ({ isOpen, onClose }) => {
 const Home = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     
+    // Auto-abrir modal después de 3 segundos de cargar la página
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            onOpen();
+        }, 3000); // 3 segundos después de cargar la página
+
+        return () => clearTimeout(timer);
+    }, [onOpen]);
+    
     const attractions = [
         {
             title: 'Naturaleza',
@@ -287,51 +296,11 @@ const Home = () => {
                     <WinterAgendaPreview />
                 </MotionBox>
 
-                {/* Separador parallax con botón modal */}
-                <Box position="relative">
-                    <WinterParallaxSeparator 
-                        text="Descubrí el Invierno en San Francisco" 
-                        imageUrl={separatorImage1} 
-                    />
-                    
-                    {/* Botón flotante para abrir modal 
-                    <MotionBox
-                        position="absolute"
-                        bottom="30px"
-                        left="50%"
-                        transform="translateX(-50%)"
-                        zIndex={10}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        viewport={{ once: true }}
-                    >
-                        <Button
-                            onClick={onOpen}
-                            size="lg"
-                            bgGradient="linear(to-r, winter.deep, winter.sky)"
-                            color="white"
-                            leftIcon={<FaSnowflake />}
-                            _hover={{ 
-                                bgGradient: "linear(to-r, winter.sky, winter.deep)", 
-                                transform: "scale(1.05)",
-                                boxShadow: "2xl"
-                            }}
-                            transition="all 0.3s"
-                            px={8}
-                            py={6}
-                            borderRadius="full"
-                            boxShadow="2xl"
-                            fontSize="lg"
-                            fontWeight="bold"
-                            border="2px solid"
-                            borderColor="white"
-                            textShadow="1px 1px 2px rgba(0,0,0,0.3)"
-                        >
-                            ¡Ver Todas las Actividades!
-                        </Button>
-                    </MotionBox>*/}
-                </Box>
+                {/* Separador parallax - SIN botón modal */}
+                <WinterParallaxSeparator 
+                    text="Descubrí el Invierno en San Francisco" 
+                    imageUrl={separatorImage1} 
+                />
 
                 {/* Carousel de atractivos */}
                 <MotionBox 
