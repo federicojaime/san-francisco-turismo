@@ -1,0 +1,168 @@
+/* src/winterStyles.css */
+
+/* Sobreescribe el color del header */
+header {
+    background-color: #0277BD !important;
+    background: linear-gradient(to right, #01579B, #0277BD, #03A9F4) !important;
+}
+
+/* Cambia el color del footer */
+footer {
+    background-color: #263238 !important;
+    background: linear-gradient(to right, #37474F, #263238, #455A64) !important;
+}
+
+/* Estilos para enlaces y botones */
+.chakra-button {
+    transition: all 0.3s ease !important;
+}
+
+.chakra-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Estilos para titulares con temática invernal */
+.winter-heading {
+    color: #0277BD !important;
+    position: relative;
+}
+
+.winter-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #0277BD, #03A9F4);
+}
+
+/* Estilos para cards con tema invernal */
+.winter-card {
+    border-top: 3px solid #03A9F4 !important;
+    transition: all 0.3s ease !important;
+}
+
+.winter-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 20px rgba(2, 119, 189, 0.15) !important;
+}
+
+/* Estilos para el menú de navegación */
+header a {
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+header a:hover, 
+header .active {
+    color: #E1F5FE !important;
+}
+
+header .active::after {
+    background-color: #E1F5FE !important;
+}
+
+/* Imágenes con efecto invernal */
+.winter-image {
+    filter: brightness(110%) contrast(120%) !important;
+    transition: all 0.5s ease !important;
+}
+
+.winter-image:hover {
+    filter: brightness(120%) contrast(130%) !important;
+}
+
+/* Banner principal con fondo invernal */
+.main-banner {
+    background: linear-gradient(to right, rgba(1, 87, 155, 0.85), rgba(3, 169, 244, 0.85)) !important;
+    color: white !important;
+}
+
+/* Clases para iconos con colores de invierno */
+.winter-icon-ice {
+    color: #E1F5FE !important;
+}
+
+.winter-icon-sky {
+    color: #03A9F4 !important;
+}
+
+.winter-icon-deep {
+    color: #0277BD !important;
+}
+
+.winter-icon-pine {
+    color: #2E7D32 !important;
+}
+
+/* Personalización de separadores */
+hr {
+    border-color: #03A9F4 !important;
+    opacity: 0.3;
+}
+
+/* Sobreescribe el color de los titulares de secciones principales */
+.elegant-section-title h2 {
+    color: #0277BD !important;
+}
+
+.elegant-section-title div {
+    background-color: #03A9F4 !important;
+}
+
+/* Estilos para los elementos de atracción de la página de inicio */
+.attractions-card {
+    border-color: rgba(2, 119, 189, 0.3) !important;
+}
+
+.attractions-card:hover {
+    border-color: #03A9F4 !important;
+}
+
+/* Personaliza los fondos de secciones */
+.section-bg-light {
+    background-color: #E3F2FD !important;
+}
+
+.section-bg-dark {
+    background-color: rgba(2, 119, 189, 0.05) !important;
+}
+
+/* Animación de nieve */
+@keyframes snowfall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+.snowflake {
+    animation: snowfall linear infinite;
+}
+
+/* Forzar colores específicos para el header */
+.chakra-ui-dark header,
+.chakra-ui-light header {
+    background: linear-gradient(to right, #01579B, #0277BD, #03A9F4) !important;
+}
+
+/* Forzar colores específicos para el footer */
+.chakra-ui-dark footer,
+.chakra-ui-light footer {
+    background: linear-gradient(to right, #37474F, #263238, #455A64) !important;
+}
+
+/* Asegurar que el header tenga el color correcto */
+[data-theme="winter"] header {
+    background: linear-gradient(to right, #01579B, #0277BD, #03A9F4) !important;
+}
+
+/* Asegurar que el footer tenga el color correcto */
+[data-theme="winter"] footer {
+    background: linear-gradient(to right, #37474F, #263238, #455A64) !important;
+}

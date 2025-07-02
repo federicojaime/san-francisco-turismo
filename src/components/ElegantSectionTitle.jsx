@@ -1,19 +1,19 @@
-// src/components/AutumnSectionTitle.jsx
+// src/components/ElegantSectionTitle.jsx
 import React from 'react';
 import { Box, Heading, Text, VStack, Icon } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaLeaf } from 'react-icons/fa';
+import { FaSnowflake } from 'react-icons/fa';
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
 const MotionIcon = motion(Icon);
 
-const AutumnSectionTitle = ({
+const ElegantSectionTitle = ({
     title,
     subtitle,
-    primaryColor = "#B7410E",
-    accentColor = "#CD950C"
+    primaryColor = "#0277BD",
+    accentColor = "#03A9F4"
 }) => (
     <VStack
         spacing={4}
@@ -23,9 +23,9 @@ const AutumnSectionTitle = ({
         position="relative"
         className="elegant-section-title"
     >
-        {/* Decoración de hojas */}
+        {/* Decoración de copos de nieve */}
         <MotionIcon
-            as={FaLeaf}
+            as={FaSnowflake}
             position="absolute"
             top="10px"
             left="10%"
@@ -38,7 +38,7 @@ const AutumnSectionTitle = ({
         />
 
         <MotionIcon
-            as={FaLeaf}
+            as={FaSnowflake}
             position="absolute"
             bottom="10px"
             right="10%"
@@ -60,7 +60,7 @@ const AutumnSectionTitle = ({
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="autumn-heading"
+            className="winter-heading"
         >
             {title}
         </MotionHeading>
@@ -90,4 +90,4 @@ const AutumnSectionTitle = ({
     </VStack>
 );
 
-export default AutumnSectionTitle;
+export default ElegantSectionTitle;

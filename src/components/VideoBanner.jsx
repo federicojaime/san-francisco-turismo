@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Heading, VStack, IconButton, Flex, Text, Icon } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { FaLeaf } from 'react-icons/fa';
+import { FaSnowflake } from 'react-icons/fa';
 import videoSpot from "../assets/videos/spot.mp4";
 import imagenPlaceholder from "../assets/images/sierras.jpg";
 
@@ -12,10 +12,10 @@ const MotionIconButton = motion(IconButton);
 const MotionIcon = motion(Icon);
 
 const frases = [
-    "COLORES DE OTOÑO",
-    "SENDEROS DORADOS",
-    "NATURALEZA EN CAMBIO",
-    "AIRE FRESCO DE MONTAÑA",
+    "PAISAJES INVERNALES",
+    "SENDEROS",
+    "AIRE PURO",
+    "VACACIONES DE INVIERNO",
 ];
 
 const VideoBanner = () => {
@@ -71,17 +71,17 @@ const VideoBanner = () => {
             <Box
                 position="absolute"
                 inset="0"
-                bg="linear-gradient(to bottom, rgba(210,105,30,0.3), rgba(184,134,11,0.5))"
+                bg="linear-gradient(to bottom, rgba(1,87,155,0.3), rgba(3,169,244,0.5))"
                 zIndex="1"
             />
 
-            {/* Hojas animadas flotando */}
+            {/* Copos de nieve animados flotando */}
             <MotionIcon
-                as={FaLeaf}
+                as={FaSnowflake}
                 position="absolute"
                 top="15%"
                 left="10%"
-                color="#D2691E"
+                color="#E1F5FE"
                 boxSize={6}
                 zIndex={2}
                 animate={{ 
@@ -97,11 +97,11 @@ const VideoBanner = () => {
             />
             
             <MotionIcon
-                as={FaLeaf}
+                as={FaSnowflake}
                 position="absolute"
                 top="30%"
                 right="15%"
-                color="#B8860B"
+                color="#B3E5FC"
                 boxSize={8}
                 zIndex={2}
                 animate={{ 
@@ -117,11 +117,11 @@ const VideoBanner = () => {
             />
             
             <MotionIcon
-                as={FaLeaf}
+                as={FaSnowflake}
                 position="absolute"
                 bottom="25%"
                 left="20%"
-                color="#FF8C00"
+                color="#03A9F4"
                 boxSize={7}
                 zIndex={2}
                 animate={{ 
@@ -170,17 +170,17 @@ const VideoBanner = () => {
                         <MotionHeading
                             as="h2"
                             size="3xl"
-                            color="#FFB81C"
+                            color="#E1F5FE"
                             fontWeight="semibold"
                             letterSpacing="tighter"
                             textShadow="2px 2px 8px rgba(0,0,0,0.6)"
                         >
-                            EL OTOÑO EN SAN FRANCISCO
+                            EL INVIERNO EN SAN FRANCISCO
                         </MotionHeading>
                         <MotionBox
                             width="60%"
                             height="3px"
-                            bgGradient="linear(to-r, #D2691E, #FFB81C)"
+                            bgGradient="linear(to-r, #0277BD, #03A9F4)"
                             mx="auto"
                             mt={2}
                             mb={4}
@@ -232,7 +232,7 @@ const VideoBanner = () => {
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
-                        bg="rgba(210,105,30,0.5)"
+                        bg="rgba(1,87,155,0.5)"
                         zIndex="20"
                     >
                         <Box

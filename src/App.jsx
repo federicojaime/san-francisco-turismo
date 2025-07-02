@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import autumnTheme from './AutumnTheme.jsx';
+import winterTheme from './WinterTheme.jsx';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -13,20 +13,20 @@ import CommunicationWidget from './components/SocialWidget';
 import ScrollToTop from './components/config/ScrollToTop.jsx';
 import Gastronomy from './pages/Gastronomy.jsx';
 import Events from './pages/Events.jsx';
-import FallingLeaves from './components/FallingLeaves.jsx';
+import FallingSnow from './components/FallingSnow.jsx';
 
-// Importar estilos adicionales
-import './autumnStyles.css';
+// Importar estilos de invierno
+import './winterStyles.css';
 
 const MotionBox = motion(Box);
 
 function App() {
   return (
-    <ChakraProvider theme={autumnTheme}>
+    <ChakraProvider theme={winterTheme}>
       <Router>
         <ScrollToTop />
         <Box minH="100vh" display="flex" flexDirection="column">
-          <FallingLeaves count={10} />
+          <FallingSnow count={30} />
           <Header />
           <AnimatePresence mode="wait">
             <MotionBox

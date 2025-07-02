@@ -1,4 +1,4 @@
-// src/components/Header.jsx - Versión modificada
+// src/components/Header.jsx - Versión corregida para invierno
 import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
@@ -53,7 +53,7 @@ const NavLink = ({ children, to, isMobile = false, onClose }) => {
         width={isMobile ? 'full' : 'auto'}
         px={4}
         _hover={{
-          color: '#FFD700',
+          color: '#E1F5FE', // Color azul hielo claro para hover
           bg: 'transparent',
         }}
         transition="all 0.3s"
@@ -68,7 +68,7 @@ const NavLink = ({ children, to, isMobile = false, onClose }) => {
           left="0"
           right="0"
           height="2px"
-          bg="#FFD700" // Amarillo dorado para el indicador
+          bg="#E1F5FE" // Color azul hielo claro para el indicador activo
           layoutId="underline"
         />
       )}
@@ -102,7 +102,7 @@ const Header = () => {
 
   return (
     <MotionFlex
-      bg={`linear-gradient(to right, rgba(147, 40, 16, ${bgOpacity}), rgba(183, 65, 14, ${bgOpacity}), rgba(214, 137, 16, ${bgOpacity}))`}
+      bg={`linear-gradient(to right, rgba(1, 87, 155, ${bgOpacity}), rgba(2, 119, 189, ${bgOpacity}), rgba(3, 169, 244, ${bgOpacity}))`}
       px={4}
       py={2}
       position="fixed"
@@ -113,6 +113,11 @@ const Header = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      style={{
+        background: bgOpacity > 0 
+          ? 'linear-gradient(to right, #01579B, #0277BD, #03A9F4)' 
+          : `linear-gradient(to right, rgba(1, 87, 155, ${bgOpacity}), rgba(2, 119, 189, ${bgOpacity}), rgba(3, 169, 244, ${bgOpacity}))`
+      }}
     >
       <NavLink to="/">
         <Image

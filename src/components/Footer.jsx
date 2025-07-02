@@ -1,4 +1,4 @@
-// src/components/Footer.jsx - Versión modificada con colores otoñales
+// src/components/Footer.jsx - Versión corregida para invierno
 import React from 'react';
 import { Box, Flex, Text, VStack, HStack, Link, Grid, GridItem, Image } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaWhatsapp, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
@@ -10,7 +10,13 @@ const MotionLink = motion(Link);
 
 const Footer = () => {
     return (
-        <Box as="footer" className="footer" py={8}>
+        <Box 
+            as="footer" 
+            py={8}
+            style={{
+                background: 'linear-gradient(to right, #37474F, #263238, #455A64)'
+            }}
+        >
             <Box maxW="1200px" mx="auto" px={4}>
                 <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={8}>
                     {/* Primera columna: Logos más pequeños y minimalistas */}
@@ -26,7 +32,7 @@ const Footer = () => {
                                     </Link>
                                 </HStack>
                             </Box>
-                            <Text fontSize="sm">Descubrí la magia de nuestro pueblo</Text>
+                            <Text fontSize="sm" color="white">Descubrí la magia de nuestro pueblo</Text>
                             <HStack spacing={3}>
                                 {['https://www.facebook.com/vivi.sanfrancisco', 'https://www.instagram.com/vivi.sanfrancisco/', 'https://api.whatsapp.com/message/TXN65HRNAD5PI1?autoload=1&app_absent=0'].map((link, index) => (
                                     <MotionLink
@@ -36,6 +42,8 @@ const Footer = () => {
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.95 }}
                                         transition={{ type: 'spring', stiffness: 300 }}
+                                        color="white"
+                                        _hover={{ color: '#E1F5FE' }}
                                     >
                                         {index === 0 ? <FaFacebook size={20} /> : index === 1 ? <FaInstagram size={20} /> : <FaWhatsapp size={20} />}
                                     </MotionLink>
@@ -47,12 +55,13 @@ const Footer = () => {
                     {/* Segunda columna: Enlaces Rápidos */}
                     <GridItem>
                         <VStack align="flex-start" spacing={2}>
-                            <Text fontWeight="bold" fontSize="md">Enlaces Rápidos</Text>
+                            <Text fontWeight="bold" fontSize="md" color="white">Enlaces Rápidos</Text>
                             {['Inicio', 'Atractivos', 'Alojamientos', 'Información'].map((item) => (
                                 <Link
                                     key={item}
                                     href={item === 'Inicio' ? '/' : `/${item.toLowerCase()}`}
-                                    _hover={{ color: '#FFD700' }}
+                                    color="white"
+                                    _hover={{ color: '#E1F5FE' }}
                                 >
                                     {item}
                                 </Link>
@@ -60,26 +69,38 @@ const Footer = () => {
                         </VStack>
                     </GridItem>
 
-
                     {/* Tercera columna: Información de contacto */}
                     <GridItem>
                         <VStack align="flex-start" spacing={3}>
-                            <Text fontWeight="bold" fontSize="md">Contacto</Text>
+                            <Text fontWeight="bold" fontSize="md" color="white">Contacto</Text>
                             <HStack spacing={2}>
-                                <FaMapMarkerAlt />
-                                <Link href="https://www.google.com/maps/search/?api=1&query=San+Mart%C3%ADn+453,+San+Francisco+del+Monte+de+Oro,+San+Luis" isExternal _hover={{ color: '#FFD700' }}>
+                                <FaMapMarkerAlt color="white" />
+                                <Link 
+                                    href="https://www.google.com/maps/search/?api=1&query=San+Mart%C3%ADn+453,+San+Francisco+del+Monte+de+Oro,+San+Luis" 
+                                    isExternal 
+                                    color="white"
+                                    _hover={{ color: '#E1F5FE' }}
+                                >
                                     <Text fontSize="sm">Sarmiento S/N, San Francisco del Monte de Oro, San Luis</Text>
                                 </Link>
                             </HStack>
                             <HStack spacing={2}>
-                                <FaPhone />
-                                <Link href="tel:+5492665063769" _hover={{ color: '#FFD700' }}>
+                                <FaPhone color="white" />
+                                <Link 
+                                    href="tel:+5492665063769" 
+                                    color="white"
+                                    _hover={{ color: '#E1F5FE' }}
+                                >
                                     <Text fontSize="sm">+54 9 2665 06-3769</Text>
                                 </Link>
                             </HStack>
                             <HStack spacing={2}>
-                                <FaEnvelope />
-                                <Link href="mailto:contacto@vivisanfrancisco.com" _hover={{ color: '#FFD700' }}>
+                                <FaEnvelope color="white" />
+                                <Link 
+                                    href="mailto:contacto@vivisanfrancisco.com" 
+                                    color="white"
+                                    _hover={{ color: '#E1F5FE' }}
+                                >
                                     <Text fontSize="sm">contacto@vivisanfrancisco.com</Text>
                                 </Link>
                             </HStack>
@@ -98,14 +119,15 @@ const Footer = () => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                 >
                     <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap">
-                        <Text fontSize="xs">&copy; 2025 Viví San Francisco. Todos los derechos reservados.</Text>
+                        <Text fontSize="xs" color="white">&copy; 2025 Viví San Francisco. Todos los derechos reservados.</Text>
                         <Link
                             href="https://www.instagram.com/codeo.ar"
                             isExternal
                             fontSize="xs"
                             display="flex"
                             alignItems="center"
-                            _hover={{ color: '#FFD700' }}
+                            color="white"
+                            _hover={{ color: '#E1F5FE' }}
                         >
                             <Image src={images.codeoLogo} alt="Logo Codeo" w="20px" h="25px" mr={2} />
                             Desarrollado por

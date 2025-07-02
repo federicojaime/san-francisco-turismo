@@ -8,141 +8,260 @@ import {
   Container,
   Heading,
   SimpleGrid,
-  Image,
   Text,
   VStack,
   HStack,
-  Button,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
   InputGroup,
   InputLeftElement,
   Input,
   Badge,
   Divider,
-  Flex,
   Select,
-  IconButton,
-  Tooltip,
   useToast,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import {
-  CalendarIcon,
   SearchIcon,
-  TimeIcon,
-  StarIcon,
-  InfoIcon,
   PhoneIcon,
-  EmailIcon,
 } from "@chakra-ui/icons";
-import { FaMapMarkerAlt, FaFilter, FaShare } from "react-icons/fa";
+import { FaMapMarkerAlt, FaFilter, FaSnowflake, FaCalendarAlt } from "react-icons/fa";
+import { motion } from 'framer-motion';
 
-// Importar el componente de título elegante (asumiendo que existe)
+// Importar datos de eventos de invierno
+import { winterEvents, guideServices, museumSchedules } from '../data/winterEventsData';
 import ElegantSectionTitle from "../components/ElegantSectionTitle";
-import festivalImage from "../assets/images/feriaArtesano.jpg";
 
-// Lista de eventos de ejemplo (expandida)
-const eventsList = [
-  {
-    id: 1,
-    name: "Festival Gastronómico Internacional",
-    image: festivalImage,
-    description: "Descubre los sabores del mundo en el festival gastronómico más importante del año. Chefs internacionales, degustaciones, shows de cocina en vivo y mucho más.",
-    date: new Date(2025, 1, 10),
-    location: "Plaza Gastronómica Central",
-    hours: "12:00 - 23:00",
-    category: "Gastronomía",
-    price: "Entrada Libre",
-    contactPhone: "+34 555 123 456",
-    contactEmail: "festival@ejemplo.com",
-    capacity: 5000,
-    highlights: ["Cocina internacional", "Shows en vivo", "Área infantil"],
-    coordinates: { lat: 40.416775, lng: -3.703790 }
-  },
-  {
-    id: 2,
-    name: "Feria de Artesanía Tradicional",
-    image: festivalImage,
-    description: "Exposición y venta de artesanías locales y regionales. Demonstraciones en vivo de técnicas tradicionales y talleres participativos.",
-    date: new Date(2025, 1, 17),
-    location: "Centro Cultural Histórico",
-    hours: "10:00 - 20:00",
-    category: "Cultura",
-    price: "5€",
-    contactPhone: "+34 555 789 012",
-    contactEmail: "artesania@ejemplo.com",
-    capacity: 1000,
-    highlights: ["Talleres gratuitos", "Venta directa", "Demostraciones"],
-    coordinates: { lat: 40.417890, lng: -3.704560 }
-  },
-  {
-    id: 3,
-    name: "Festival de Música y Danza",
-    image: festivalImage,
-    description: "Gran festival que reúne lo mejor de la música y danza tradicional y contemporánea. Actuaciones en vivo, talleres y actividades participativas.",
-    date: new Date(2025, 2, 5),
-    location: "Auditorio Municipal",
-    hours: "16:00 - 00:00",
-    category: "Música",
-    price: "15€",
-    contactPhone: "+34 555 345 678",
-    contactEmail: "musica@ejemplo.com",
-    capacity: 3000,
-    highlights: ["Artistas internacionales", "Zona gastronómica", "Área de descanso"],
-    coordinates: { lat: 40.418920, lng: -3.705670 }
-  }
-];
+const MotionBox = motion(Box);
 
-const categories = ["Todos", "Gastronomía", "Cultura", "Música", "Deporte", "Arte", "Naturaleza"];
+const categories = ["Todos", "Deportes", "Cultura", "Música", "Turismo", "Feria", "Patrio", "Entretenimiento", "Teatro", "Cultural", "Promoción"];
+
+// Definir colores del tema winter
+const winterTheme = {
+  deep: "#0277BD",
+  sky: "#03A9F4",
+  pine: "#2E7D32",
+  frost: "#B3E5FC",
+  crystal: "#E1F5FE"
+};
+
+const EventDayCard = ({ eventDay }) => {
+  return (
+    <Card bg="white" shadow="xl" borderRadius="lg" overflow="hidden" borderTop="4px solid" borderTopColor={winterTheme.sky}>
+      <CardBody p={6}>
+        <VStack align="stretch" spacing={4}>
+          <HStack justify="space-between" align="center">
+            <HStack>
+              <FaCalendarAlt color={winterTheme.deep} size={20} />
+              <Heading size="lg" color={winterTheme.deep}>
+                {eventDay.day}
+              </Heading>
+            </HStack>
+            <Badge colorScheme="blue" fontSize="md" p={2}>
+              {eventDay.events.length} evento{eventDay.events.length > 1 ? 's' : ''}
+            </Badge>
+          </HStack>
+
+          <VStack align="stretch" spacing={3}>
+            {eventDay.events.map((event, index) => (
+              <Box key={index} p={4} bg="gray.50" borderRadius="md" borderLeft="3px solid" borderLeftColor={winterTheme.sky}>
+                <VStack align="stretch" spacing={2}>
+                  <HStack justify="space-between" wrap="wrap">
+                    <HStack>
+                      <Text fontSize="lg">{event.icon}</Text>
+                      <Text fontWeight="bold" color={winterTheme.deep}>
+                        {event.time}
+                      </Text>
+                      <Badge colorScheme="teal" variant="subtle">
+                        {event.category}
+                      </Badge>
+                    </HStack>
+                    {event.price && (
+                      <Badge colorScheme="orange" fontSize="sm">
+                        {event.price}
+                      </Badge>
+                    )}
+                  </HStack>
+
+                  <Heading size="md" color="gray.800">
+                    {event.title}
+                  </Heading>
+
+                  <Text color="gray.600" fontSize="sm">
+                    {event.description}
+                  </Text>
+
+                  <Text fontSize="xs" color="gray.500" fontStyle="italic">
+                    Organiza: {event.organizer}
+                  </Text>
+                </VStack>
+              </Box>
+            ))}
+          </VStack>
+        </VStack>
+      </CardBody>
+    </Card>
+  );
+};
+
+const GuideServicesCard = () => (
+  <Card bg="white" shadow="xl" borderRadius="lg" overflow="hidden" borderTop="4px solid" borderTopColor={winterTheme.pine}>
+    <CardBody p={6}>
+      <VStack align="stretch" spacing={4}>
+        <HStack>
+          <FaMapMarkerAlt color={winterTheme.pine} size={20} />
+          <Heading size="lg" color={winterTheme.pine}>
+            EXCURSIONES CON BAQUEANOS AUTORIZADOS
+          </Heading>
+        </HStack>
+
+        <VStack align="stretch" spacing={4}>
+          {guideServices.map((service, index) => (
+            <Box key={index} p={4} bg="green.50" borderRadius="md" borderLeft="3px solid" borderLeftColor={winterTheme.pine}>
+              <VStack align="stretch" spacing={2}>
+                <HStack justify="space-between">
+                  <Heading size="sm" color={winterTheme.pine}>
+                    {service.name} {service.person && `- ${service.person}`}
+                  </Heading>
+                  <Badge colorScheme="green" variant="subtle">
+                    Legajo {service.legajo}
+                  </Badge>
+                </HStack>
+                <Text fontSize="sm" color="gray.600">
+                  {service.description}
+                </Text>
+                {service.contact && (
+                  <HStack>
+                    <PhoneIcon color={winterTheme.pine} />
+                    <Text fontSize="sm" color={winterTheme.pine} fontWeight="bold">
+                      {service.contact}
+                    </Text>
+                  </HStack>
+                )}
+              </VStack>
+            </Box>
+          ))}
+        </VStack>
+      </VStack>
+    </CardBody>
+  </Card>
+);
+
+const MuseumSchedulesCard = () => (
+  <Card bg="white" shadow="xl" borderRadius="lg" overflow="hidden" borderTop="4px solid" borderTopColor={winterTheme.deep}>
+    <CardBody p={6}>
+      <VStack align="stretch" spacing={4}>
+        <HStack>
+          <FaSnowflake color={winterTheme.deep} size={20} />
+          <Heading size="lg" color={winterTheme.deep}>
+            VISITAS GUIADAS PERMANENTES EN MUSEOS LOCALES
+          </Heading>
+        </HStack>
+
+        <VStack align="stretch" spacing={4}>
+          <Box p={4} bg="blue.50" borderRadius="md">
+            <Heading size="sm" color={winterTheme.deep} mb={2}>
+              {museumSchedules.solarHistorico.name}
+            </Heading>
+            <Text fontSize="sm" color="gray.600">
+              {museumSchedules.solarHistorico.schedule}
+            </Text>
+          </Box>
+
+          <Box p={4} bg="blue.50" borderRadius="md">
+            <Heading size="sm" color={winterTheme.deep} mb={2}>
+              {museumSchedules.rosendaQuiroga.name}
+            </Heading>
+            <Text fontSize="sm" color="gray.600" mb={1}>
+              {museumSchedules.rosendaQuiroga.weekdays}
+            </Text>
+            <Text fontSize="sm" color="gray.600">
+              {museumSchedules.rosendaQuiroga.weekends}
+            </Text>
+          </Box>
+
+          <Box p={4} bg="blue.50" borderRadius="md">
+            <Heading size="sm" color={winterTheme.deep} mb={2}>
+              {museumSchedules.henryViegas.name}
+            </Heading>
+            <Text fontSize="sm" color="gray.600">
+              {museumSchedules.henryViegas.schedule}
+            </Text>
+          </Box>
+
+          <Divider />
+
+          <Box>
+            <Heading size="sm" color={winterTheme.deep} mb={2}>
+              INFORMACIÓN TURÍSTICA
+            </Heading>
+            <VStack align="stretch" spacing={1}>
+              <Text fontSize="sm" color="gray.600">
+                {museumSchedules.touristInfo.terminal}
+              </Text>
+              <Text fontSize="sm" color="gray.600">
+                {museumSchedules.touristInfo.plaza}
+              </Text>
+              <HStack>
+                <PhoneIcon color={winterTheme.deep} />
+                <Text fontSize="sm" color={winterTheme.deep} fontWeight="bold">
+                  {museumSchedules.touristInfo.contact}
+                </Text>
+              </HStack>
+            </VStack>
+          </Box>
+        </VStack>
+      </VStack>
+    </CardBody>
+  </Card>
+);
 
 const Events = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
-  const [filteredEvents, setFilteredEvents] = useState(eventsList);
+  const [filteredEvents, setFilteredEvents] = useState(winterEvents);
   const toast = useToast();
 
   // Función para filtrar eventos
   useEffect(() => {
-    let filtered = eventsList;
+    let filtered = winterEvents;
 
     // Filtrar por término de búsqueda
     if (searchTerm) {
-      filtered = filtered.filter(event =>
-        event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.description.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(eventDay =>
+        eventDay.events.some(event =>
+          event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.description.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       );
     }
 
     // Filtrar por categoría
     if (selectedCategory !== "Todos") {
-      filtered = filtered.filter(event => event.category === selectedCategory);
+      filtered = filtered.filter(eventDay =>
+        eventDay.events.some(event => event.category === selectedCategory)
+      );
     }
 
     // Filtrar por fecha
     if (selectedDate) {
-      filtered = filtered.filter(event =>
-        format(event.date, "yyyy-MM-dd") === format(selectedDate, "yyyy-MM-dd")
-      );
+      filtered = filtered.filter(eventDay => {
+        const eventDate = new Date(eventDay.date);
+        const selectedDateFormatted = new Date(selectedDate);
+        return eventDate.toDateString() === selectedDateFormatted.toDateString();
+      });
     }
 
     setFilteredEvents(filtered);
   }, [searchTerm, selectedCategory, selectedDate]);
 
   // Función para compartir evento
-  const handleShare = (event) => {
+  const handleShare = (eventDay) => {
     if (navigator.share) {
       navigator.share({
-        title: event.name,
-        text: event.description,
+        title: `Agenda de Invierno - ${eventDay.day}`,
+        text: `Eventos del ${eventDay.day} en San Francisco del Monte de Oro`,
         url: window.location.href,
       })
       .then(() => {
@@ -160,7 +279,6 @@ const Events = () => {
         });
       });
     } else {
-      // Fallback para navegadores que no soportan Web Share API
       navigator.clipboard.writeText(window.location.href);
       toast({
         title: "Enlace copiado al portapapeles",
@@ -173,12 +291,18 @@ const Events = () => {
   return (
     <Box bg="gray.50" minHeight="100vh" py={12}>
       <Container maxW="container.xl">
-        <ElegantSectionTitle
-          title="🎉 EVENTOS TURÍSTICOS"
-          subtitle="Descubre las mejores experiencias en nuestra ciudad"
-          primaryColor="teal.600"
-          accentColor="orange.400"
-        />
+        <MotionBox
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <ElegantSectionTitle
+            title="❄️ AGENDA DE INVIERNO 2025"
+            subtitle="Más de 40 actividades para disfrutar estas vacaciones de invierno"
+            primaryColor={winterTheme.deep}
+            accentColor={winterTheme.sky}
+          />
+        </MotionBox>
 
         {/* Barra de búsqueda y filtros */}
         <VStack spacing={6} mb={10}>
@@ -186,13 +310,15 @@ const Events = () => {
             {/* Buscador por nombre */}
             <InputGroup>
               <InputLeftElement pointerEvents="none">
-                <SearchIcon color="teal.500" />
+                <SearchIcon color={winterTheme.sky} />
               </InputLeftElement>
               <Input
                 placeholder="Buscar eventos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 bg="white"
+                borderColor={winterTheme.frost}
+                _focus={{ borderColor: winterTheme.sky, boxShadow: `0 0 0 1px ${winterTheme.sky}` }}
               />
             </InputGroup>
 
@@ -201,7 +327,8 @@ const Events = () => {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               bg="white"
-              icon={<FaFilter />}
+              borderColor={winterTheme.frost}
+              _focus={{ borderColor: winterTheme.sky }}
             >
               {categories.map((category) => (
                 <option key={category} value={category}>
@@ -221,188 +348,67 @@ const Events = () => {
                 <Input
                   bg="white"
                   cursor="pointer"
+                  borderColor={winterTheme.frost}
+                  _focus={{ borderColor: winterTheme.sky }}
                 />
               }
             />
           </SimpleGrid>
+
+          {/* Información destacada */}
+          <Box
+            bg={winterTheme.crystal}
+            p={6}
+            borderRadius="lg"
+            borderLeft="4px solid"
+            borderLeftColor={winterTheme.sky}
+            width="100%"
+          >
+            <HStack justify="space-between" align="center" wrap="wrap">
+              <VStack align="start" spacing={1}>
+                <Text fontSize="lg" fontWeight="bold" color={winterTheme.deep}>
+                  Período: Viernes 4 al 16 de Julio, 2025
+                </Text>
+                <Text color="gray.600">
+                  ¡Vacaciones de invierno llenas de actividades para toda la familia!
+                </Text>
+              </VStack>
+              <Badge colorScheme="blue" fontSize="lg" p={2}>
+                40+ Actividades
+              </Badge>
+            </HStack>
+          </Box>
         </VStack>
 
-        {/* Lista de eventos */}
-        {filteredEvents.length > 0 ? (
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-            {filteredEvents.map((event) => (
-              <Box
-                key={event.id}
-                bg="white"
-                borderRadius="lg"
-                overflow="hidden"
-                boxShadow="xl"
-                transition="all 0.3s"
-                _hover={{ transform: "translateY(-5px)", boxShadow: "2xl" }}
-              >
-                <Image
-                  src={event.image}
-                  alt={event.name}
-                  height="220px"
-                  width="100%"
-                  objectFit="cover"
-                  fallbackSrc="https://via.placeholder.com/400x220"
-                />
-                <Box p={6}>
-                  <HStack justifyContent="space-between" mb={2}>
-                    <Badge colorScheme="teal" fontSize="0.8em" px={2} py={1}>
-                      {event.category}
-                    </Badge>
-                    <Badge colorScheme="orange" fontSize="0.8em" px={2} py={1}>
-                      {event.price}
-                    </Badge>
-                  </HStack>
-                  
-                  <Heading size="md" mb={2} color="teal.700">
-                    {event.name}
-                  </Heading>
-
-                  <HStack spacing={4} mb={3}>
-                    <HStack spacing={1}>
-                      <CalendarIcon color="gray.500" />
-                      <Text fontSize="sm" color="gray.500">
-                        {format(event.date, "dd/MM/yyyy", { locale: es })}
-                      </Text>
-                    </HStack>
-                    <HStack spacing={1}>
-                      <TimeIcon color="gray.500" />
-                      <Text fontSize="sm" color="gray.500">
-                        {event.hours}
-                      </Text>
-                    </HStack>
-                  </HStack>
-
-                  <Text noOfLines={2} mb={4} color="gray.600">
-                    {event.description}
+        {/* Grid principal con eventos y información adicional */}
+        <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={8}>
+          {/* Columna principal - Eventos */}
+          <Box gridColumn={{ base: "span 1", lg: "span 2" }}>
+            <VStack spacing={6} align="stretch">
+              <Heading size="lg" color={winterTheme.deep} mb={4}>
+                📅 Programa de Actividades
+              </Heading>
+              
+              {filteredEvents.length > 0 ? (
+                filteredEvents.map((eventDay) => (
+                  <EventDayCard key={eventDay.id} eventDay={eventDay} />
+                ))
+              ) : (
+                <Box textAlign="center" py={10}>
+                  <Text fontSize="xl" color="gray.500">
+                    No se encontraron eventos con los filtros seleccionados
                   </Text>
-
-                  <Divider mb={4} />
-
-                  <HStack justifyContent="space-between">
-                    <Button
-                      colorScheme="teal"
-                      size="sm"
-                      leftIcon={<InfoIcon />}
-                      onClick={() => {
-                        setSelectedEvent(event);
-                        onOpen();
-                      }}
-                      flex="1"
-                    >
-                      Más información
-                    </Button>
-                    <IconButton
-                      icon={<FaShare />}
-                      colorScheme="gray"
-                      variant="ghost"
-                      onClick={() => handleShare(event)}
-                      aria-label="Compartir evento"
-                    />
-                  </HStack>
                 </Box>
-              </Box>
-            ))}
-          </SimpleGrid>
-        ) : (
-          <Box textAlign="center" py={10}>
-            <Text fontSize="xl" color="gray.500">
-              No se encontraron eventos con los filtros seleccionados
-            </Text>
+              )}
+            </VStack>
           </Box>
-        )}
 
-        {/* Modal de detalle del evento */}
-        <Modal isOpen={isOpen} onClose={onClose} size="xl">
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader color="teal.600" fontSize="2xl">
-              {selectedEvent?.name}
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Image
-                src={selectedEvent?.image}
-                alt={selectedEvent?.name}
-                mb={6}
-                borderRadius="md"
-                width="100%"
-                height="300px"
-                objectFit="cover"
-                fallbackSrc="https://via.placeholder.com/800x300"
-              />
-
-              <VStack align="stretch" spacing={4}>
-                <Text fontSize="lg">{selectedEvent?.description}</Text>
-
-                <SimpleGrid columns={2} spacing={4}>
-                  <VStack align="start">
-                    <HStack>
-                      <FaMapMarkerAlt color="teal" />
-                      <Text fontWeight="bold">Ubicación:</Text>
-                    </HStack>
-                    <Text>{selectedEvent?.location}</Text>
-                  </VStack>
-
-                  <VStack align="start">
-                    <HStack>
-                      <TimeIcon color="teal" />
-                      <Text fontWeight="bold">Horario:</Text>
-                    </HStack>
-                    <Text>{selectedEvent?.hours}</Text>
-                  </VStack>
-
-                  <VStack align="start">
-                    <HStack>
-                      <PhoneIcon color="teal" />
-                      <Text fontWeight="bold">Teléfono:</Text>
-                    </HStack>
-                    <Text>{selectedEvent?.contactPhone}</Text>
-                  </VStack>
-
-                  <VStack align="start">
-                    <HStack>
-                      <EmailIcon color="teal" />
-                      <Text fontWeight="bold">Email:</Text>
-                    </HStack>
-                    <Text>{selectedEvent?.contactEmail}</Text>
-                  </VStack>
-                </SimpleGrid>
-
-                <Box>
-                  <Text fontWeight="bold" mb={2}>
-                    Destacados:
-                  </Text>
-                  <SimpleGrid columns={2} spacing={2}>
-                    {selectedEvent?.highlights.map((highlight, index) => (
-                      <HStack key={index}>
-                        <StarIcon color="orange.400" />
-                        <Text>{highlight}</Text>
-                      </HStack>
-                    ))}
-                  </SimpleGrid>
-                </Box>
-              </VStack>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                colorScheme="teal"
-                mr={3}
-                onClick={() => handleShare(selectedEvent)}
-                leftIcon={<FaShare />}
-              >
-                Compartir
-              </Button>
-              <Button variant="ghost" onClick={onClose}>
-                Cerrar
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+          {/* Columna lateral - Información adicional */}
+          <VStack spacing={6} align="stretch">
+            <GuideServicesCard />
+            <MuseumSchedulesCard />
+          </VStack>
+        </SimpleGrid>
       </Container>
 
       {/* Estilos personalizados para el DatePicker */}
@@ -418,7 +424,7 @@ const Events = () => {
         .react-datepicker__input-container input {
           width: 100%;
           padding: 8px 12px;
-          border: 1px solid #E2E8F0;
+          border: 1px solid #B3E5FC;
           border-radius: 0.375rem;
           font-size: 1rem;
           color: #1A202C;
@@ -426,29 +432,29 @@ const Events = () => {
         }
         .react-datepicker__input-container input:focus {
           outline: none;
-          border-color: #319795;
-          box-shadow: 0 0 0 1px #319795;
+          border-color: #03A9F4;
+          box-shadow: 0 0 0 1px #03A9F4;
         }
         .react-datepicker__day--selected {
-          background-color: #319795;
+          background-color: #03A9F4;
           color: white;
         }
         .react-datepicker__day--selected:hover {
-          background-color: #2C7A7B;
+          background-color: #0277BD;
         }
         .react-datepicker__day:hover {
-          background-color: #E6FFFA;
+          background-color: #E1F5FE;
         }
         .react-datepicker__header {
-          background-color: #F7FAFC;
-          border-bottom: 1px solid #E2E8F0;
+          background-color: #E3F2FD;
+          border-bottom: 1px solid #B3E5FC;
         }
         .react-datepicker__current-month {
-          color: #2D3748;
+          color: #0277BD;
           font-weight: 600;
         }
         .react-datepicker__day-name {
-          color: #4A5568;
+          color: #0277BD;
         }
       `}</style>
     </Box>
