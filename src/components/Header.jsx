@@ -1,4 +1,4 @@
-// src/components/Header.jsx - Versión corregida para invierno
+// src/components/Header.jsx - Versión actualizada con menú Conocé
 import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
@@ -136,6 +136,7 @@ const Header = () => {
           alignItems="center"
         >
           <NavLink to="/">Inicio</NavLink>
+          <NavLink to="/conoce">Conocé</NavLink>
           <NavLink to="/atractivos">Atractivos</NavLink>
           <NavLink to="/alojamientos">Alojamientos</NavLink>
           <NavLink to="/informacion">Información</NavLink>
@@ -165,6 +166,9 @@ const Header = () => {
               <VStack spacing={4} align="stretch" mt={8}>
                 <NavLink to="/" isMobile onClose={onClose}>
                   Inicio
+                </NavLink>
+                <NavLink to="/conoce" isMobile onClose={onClose}>
+                  Conocé
                 </NavLink>
                 <NavLink to="/atractivos" isMobile onClose={onClose}>
                   Atractivos

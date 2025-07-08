@@ -1,4 +1,4 @@
-// src/components/Footer.jsx - Versión corregida para invierno
+// src/components/Footer.jsx - Versión actualizada con enlace Conocé
 import React from 'react';
 import { Box, Flex, Text, VStack, HStack, Link, Grid, GridItem, Image } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaWhatsapp, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
@@ -56,7 +56,7 @@ const Footer = () => {
                     <GridItem>
                         <VStack align="flex-start" spacing={2}>
                             <Text fontWeight="bold" fontSize="md" color="white">Enlaces Rápidos</Text>
-                            {['Inicio', 'Atractivos', 'Alojamientos', 'Información'].map((item) => (
+                            {['Inicio', 'Conocé', 'Atractivos', 'Alojamientos', 'Información'].map((item) => (
                                 <Link
                                     key={item}
                                     href={item === 'Inicio' ? '/' : `/${item.toLowerCase()}`}

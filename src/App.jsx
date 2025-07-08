@@ -6,6 +6,7 @@ import winterTheme from './WinterTheme.jsx';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Conoce from './pages/Conoce';
 import Attractions from './pages/Attractions';
 import Accommodations from './pages/Accommodations';
 import Information from './pages/Information';
@@ -38,6 +39,7 @@ function App() {
             >
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/conoce" element={<Conoce />} />
                 <Route path="/atractivos" element={<Attractions />} />
                 <Route path="/alojamientos" element={<Accommodations />} />
                 <Route path="/eventos" element={<Events />} />
