@@ -1,4 +1,4 @@
-// src/components/WinterAgendaPreview.jsx - Versión mejorada
+// src/components/WinterAgendaPreview.jsx - Versión corregida con fechas hasta el 27 de julio
 import React from 'react';
 import { 
     Box, 
@@ -18,7 +18,7 @@ import {
 import { motion } from 'framer-motion';
 import { FaSnowflake, FaCalendarAlt, FaClock, FaArrowRight, FaStar } from 'react-icons/fa';
 import { Link as RouterLink } from 'react-router-dom';
-import { winterEvents } from '../data/winterEventsData';
+import { getUpcomingEvents } from '../data/winterEventsData';
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
@@ -131,11 +131,7 @@ const FeaturedEventCard = ({ event, delay = 0 }) => (
 
 const WinterAgendaPreview = () => {
     // Obtener los próximos 6 eventos destacados
-    const today = new Date();
-    const upcomingEvents = winterEvents
-        .filter(event => event.date >= today)
-        .slice(0, 6);
-
+    const upcomingEvents = getUpcomingEvents().slice(0, 6);
     const isMobile = useBreakpointValue({ base: true, md: false });
 
     return (
@@ -187,30 +183,12 @@ const WinterAgendaPreview = () => {
                             transition={{ duration: 0.8 }}
                             viewport={{ once: true }}
                         >
-                            {/* Badge destacado 
-                            <Badge
-                                bg="winter.sky"
-                                color="white"
-                                fontSize="md"
-                                px={6}
-                                py={2}
-                                borderRadius="full"
-                                mb={6}
-                                textTransform="uppercase"
-                                letterSpacing="wide"
-                                fontWeight="bold"
-                                boxShadow="lg"
-                            >
-                                ⭐ Evento Principal ⭐
-                            </Badge>*/}
-
                             <MotionHeading
                                 as="h1"
                                 size="3xl"
                                 color="winter.deep"
                                 mb={4}
                                 fontWeight="bold"
-                                
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -255,7 +233,7 @@ const WinterAgendaPreview = () => {
                                 <VStack spacing={1}>
                                     <Icon as={FaCalendarAlt} color="winter.deep" boxSize={6} />
                                     <Text fontSize="lg" fontWeight="bold" color="winter.deep">
-                                        Del 4 al 16
+                                        Del 4 al 27
                                     </Text>
                                     <Text fontSize="sm" color="gray.600">de Julio</Text>
                                 </VStack>

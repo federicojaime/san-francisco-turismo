@@ -29,7 +29,7 @@ import { FaMapMarkerAlt, FaFilter, FaSnowflake, FaCalendarAlt } from "react-icon
 import { motion } from 'framer-motion';
 
 // Importar datos de eventos de invierno
-import { winterEvents, guideServices, museumSchedules } from '../data/winterEventsData';
+import { getUpcomingEvents, guideServices, museumSchedules } from '../data/winterEventsData';
 import ElegantSectionTitle from "../components/ElegantSectionTitle";
 
 const MotionBox = motion(Box);
@@ -91,6 +91,15 @@ const EventDayCard = ({ eventDay }) => {
                     {event.description}
                   </Text>
 
+                  {event.location && (
+                    <HStack>
+                      <FaMapMarkerAlt color={winterTheme.deep} size={14} />
+                      <Text fontSize="sm" color={winterTheme.deep} fontWeight="bold">
+                        {event.location}
+                      </Text>
+                    </HStack>
+                  )}
+
                   <Text fontSize="xs" color="gray.500" fontStyle="italic">
                     Organiza: {event.organizer}
                   </Text>
@@ -123,9 +132,11 @@ const GuideServicesCard = () => (
                   <Heading size="sm" color={winterTheme.pine}>
                     {service.name} {service.person && `- ${service.person}`}
                   </Heading>
-                  <Badge colorScheme="green" variant="subtle">
-                    Legajo {service.legajo}
-                  </Badge>
+                  {service.legajo && (
+                    <Badge colorScheme="green" variant="subtle">
+                      Legajo {service.legajo}
+                    </Badge>
+                  )}
                 </HStack>
                 <Text fontSize="sm" color="gray.600">
                   {service.description}
@@ -137,6 +148,16 @@ const GuideServicesCard = () => (
                       {service.contact}
                     </Text>
                   </HStack>
+                )}
+                {service.email && (
+                  <Text fontSize="sm" color="gray.600">
+                    📧 {service.email}
+                  </Text>
+                )}
+                {service.instagram && (
+                  <Text fontSize="sm" color="gray.600">
+                    📸 {service.instagram}
+                  </Text>
                 )}
               </VStack>
             </Box>
@@ -208,6 +229,11 @@ const MuseumSchedulesCard = () => (
                   {museumSchedules.touristInfo.contact}
                 </Text>
               </HStack>
+              {museumSchedules.touristInfo.website && (
+                <Text fontSize="sm" color="gray.600">
+                  🌐 {museumSchedules.touristInfo.website}
+                </Text>
+              )}
             </VStack>
           </Box>
         </VStack>
@@ -220,12 +246,15 @@ const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
-  const [filteredEvents, setFilteredEvents] = useState(winterEvents);
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const toast = useToast();
+
+  // Obtener eventos desde hoy en adelante
+  const upcomingEvents = getUpcomingEvents();
 
   // Función para filtrar eventos
   useEffect(() => {
-    let filtered = winterEvents;
+    let filtered = upcomingEvents;
 
     // Filtrar por término de búsqueda
     if (searchTerm) {
@@ -254,7 +283,7 @@ const Events = () => {
     }
 
     setFilteredEvents(filtered);
-  }, [searchTerm, selectedCategory, selectedDate]);
+  }, [searchTerm, selectedCategory, selectedDate, upcomingEvents]);
 
   // Función para compartir evento
   const handleShare = (eventDay) => {
@@ -286,6 +315,24 @@ const Events = () => {
         duration: 3000,
       });
     }
+  };
+
+  // Calcular el período de eventos disponibles
+  const getEventPeriod = () => {
+    if (upcomingEvents.length === 0) return "No hay eventos próximos";
+    
+    const firstEvent = upcomingEvents[0];
+    const lastEvent = upcomingEvents[upcomingEvents.length - 1];
+    
+    const formatDate = (date) => {
+      return format(new Date(date), "d 'de' MMMM", { locale: es });
+    };
+    
+    if (upcomingEvents.length === 1) {
+      return formatDate(firstEvent.date);
+    }
+    
+    return `${formatDate(firstEvent.date)} al ${formatDate(lastEvent.date)}, 2025`;
   };
 
   return (
@@ -344,6 +391,7 @@ const Events = () => {
               dateFormat="dd/MM/yyyy"
               placeholderText="Seleccionar fecha"
               locale={es}
+              minDate={new Date()} // Solo fechas desde hoy
               customInput={
                 <Input
                   bg="white"
@@ -367,14 +415,14 @@ const Events = () => {
             <HStack justify="space-between" align="center" wrap="wrap">
               <VStack align="start" spacing={1}>
                 <Text fontSize="lg" fontWeight="bold" color={winterTheme.deep}>
-                  Período: Viernes 4 al 16 de Julio, 2025
+                  Período: {getEventPeriod()}
                 </Text>
                 <Text color="gray.600">
                   ¡Vacaciones de invierno llenas de actividades para toda la familia!
                 </Text>
               </VStack>
               <Badge colorScheme="blue" fontSize="lg" p={2}>
-                40+ Actividades
+                {upcomingEvents.length} Días con Actividades
               </Badge>
             </HStack>
           </Box>
@@ -396,8 +444,16 @@ const Events = () => {
               ) : (
                 <Box textAlign="center" py={10}>
                   <Text fontSize="xl" color="gray.500">
-                    No se encontraron eventos con los filtros seleccionados
+                    {upcomingEvents.length === 0 
+                      ? "No hay eventos próximos programados" 
+                      : "No se encontraron eventos con los filtros seleccionados"
+                    }
                   </Text>
+                  {selectedDate || searchTerm || selectedCategory !== "Todos" ? (
+                    <Text fontSize="md" color="gray.400" mt={2}>
+                      Intenta cambiar los filtros o la fecha seleccionada
+                    </Text>
+                  ) : null}
                 </Box>
               )}
             </VStack>
@@ -455,6 +511,10 @@ const Events = () => {
         }
         .react-datepicker__day-name {
           color: #0277BD;
+        }
+        .react-datepicker__day--disabled {
+          color: #ccc;
+          cursor: not-allowed;
         }
       `}</style>
     </Box>

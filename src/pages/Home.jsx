@@ -147,7 +147,7 @@ const WinterActivitiesModal = ({ isOpen, onClose }) => {
                                     fontSize="md" 
                                     textShadow="1px 1px 2px rgba(0,0,0,0.6)"
                                 >
-                                    Del 4 al 16 de Julio
+                                    Del 4 al 27 de Julio
                                 </Text>
                             </VStack>
                         </Box>
